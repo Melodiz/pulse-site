@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>pulse-site — design variants</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0 auto; padding: 24px 20px; max-width: 640px;
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #faf8f5; color: #1a1d24;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0c0e14; color: #e4dcc8; }
+      a { color: #d89888; }
+      li { border-color: rgba(140,168,200,0.15); }
+    }
+    h1 { font-size: 1.3rem; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 14px 0; border-bottom: 1px solid rgba(120,110,100,0.18); }
+    a { color: #c07868; font-weight: 600; font-size: 1.05rem; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    p { margin: 4px 0 0; font-size: 0.9rem; opacity: 0.75; }
+  </style>
+</head>
+<body>
+  <h1>Варианты дизайна — выбери на телефоне</h1>
+  <ul>
+    <li>
+      <a href="../2026-06-11-news.html">current</a>
+      <p>Текущий живой дизайн (dusk-карточки, после Stage 1b).</p>
+    </li>
+    <li>
+      <a href="v1.html">v1 — editorial dense</a>
+      <p>Газетная плотность: линейки вместо коробок, максимум контента на экран, контролы — типографика.</p>
+    </li>
+    <li>
+      <a href="v2.html">v2 — quiet cards</a>
+      <p>Та же dusk-палитра, но вся «обвязка» утихла: оценки — глифы у заголовка, заметка появляется после оценки.</p>
+    </li>
+    <li>
+      <a href="v3.html">v3 — reader mode</a>
+      <p>Чистый лонгрид: иерархия только типографикой, контролы видны лишь у раскрытой карточки.</p>
+    </li>
+  </ul>
+</body>
+</html>

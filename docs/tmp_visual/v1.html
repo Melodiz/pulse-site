@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AI-Tech Field Pulse — News — 2026-06-11 — v1</title>
+  <link rel="stylesheet" href="v1.css">
+</head>
+<body class="lang-ru">
+
+<header class="site-header">
+  <div class="header-row">
+    <p class="source">AI-Tech Field Pulse — News</p>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" class="active" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+  <h1>
+    <span lang="ru">Дайджест новостей</span>
+    <span lang="en">News digest</span>
+  </h1>
+  <p class="digest-date">
+    <time datetime="2026-06-11">2026-06-11</time>
+    <span class="digest-range">
+      <span lang="ru">(обзор за 14 мая — 11 июня 2026)</span>
+      <span lang="en">(lookback May 14 – June 11, 2026)</span>
+    </span>
+  </p>
+</header>
+
+<main>
+
+<!-- TL;DR -->
+<section class="intro-block">
+  <details open>
+    <summary>
+      <span lang="ru">Коротко</span>
+      <span lang="en">TL;DR</span>
+    </summary>
+    <div class="intro-body">
+      <ul lang="ru">
+        <li><strong>Главная история окна — собственный стек Anthropic</strong>: Claude Opus 4.8 (28 мая) и новый tier Mythos — Claude Fable 5 + Mythos 5 (9 июня) — оба вышли внутри периода; одновременно опубликован отчёт «When AI builds itself» (4 июня), в котором раскрывается, что Claude пишет >80% production-кода Anthropic, и предложена координированная пауза.</li>
+        <li><strong>Мнения о Fable 5 делятся резко</strong>: авторитетные обзоры оценивают его как step change для длинных, сложных, хорошо определённых задач (Karpathy, Mollick, Shipper, Wiegold), но скандал вокруг незаметной деградации «frontier LLM development»-запросов — прямая проблема целостности для ML-пайплайнов исследователя.</li>
+        <li><strong>За пределами Anthropic</strong>: DeepSeek V4 на Huawei Ascend (non-NVIDIA, frontier-class, open-weights), сделка Anthropic с Google/TPU на $35B, EO Трампа о 30-дневном пре-релизе и дорожная карта auto-researcher от OpenAI проходят порог.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>The window's dominant story is Anthropic's own stack</strong>: Claude Opus 4.8 (May 28) and the new Mythos-class tier — Claude Fable 5 + Mythos 5 (June 9) — both landed inside the lookback, alongside the "When AI builds itself" paper (June 4) disclosing Claude now writes >80% of Anthropic's production code and proposing a coordinated frontier pause.</li>
+        <li><strong>Community verdict on Fable 5 splits hard</strong>: credible hands-on reports rate it a genuine step-change for long-horizon, hard, well-specified work (Karpathy, Mollick, Shipper, Wiegold), but a launch controversy — Anthropic silently degrading "frontier LLM development" queries via steering/PEFT without notifying the user — is a direct integrity concern for an AI researcher's own ML workflows.</li>
+        <li><strong>Outside Anthropic</strong>: DeepSeek V4 on Huawei Ascend (non-NVIDIA, frontier-class, open-weights), the $35B Google-TPU-backed Anthropic compute deal, Trump's 30-day frontier pre-release EO, and OpenAI's auto-researcher roadmap clear the bar.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- CARD 1 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://anthropic.com/news/claude-fable-5-mythos-5 | Claude Fable 5 &amp; Mythos 5 launch | release |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Claude Fable 5 и Mythos 5 — новый tier выше Opus</span>
+        <span lang="en">Claude Fable 5 &amp; Mythos 5 — new Mythos-class tier above Opus</span>
+      </span>
+      <span class="tag tag-release">release</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Anthropic представила tier возможностей <em>выше</em> Opus. Fable 5 — публичная модель с ограничениями безопасности (API <code>claude-fable-5</code>); Mythos 5 — те же веса без ограничений, доступна только партнёрам Project Glasswing (кибер) и отдельным биоисследователям. Цена $10/$50 за M токенов (2× Opus 4.8), 1M контекста, 128K выхода. Обязательное хранение данных 30 дней на весь трафик (даже ранее согласованные zero-retention контракты).</p>
+      <p lang="ru">Независимый рецензент Thomas Wiegold сообщает, что Fable 5 с первой попытки решил его бенчмарк Texas Hold'em Go, который «ни одна модель ранее не решала с первой попытки». На бенчмарке Every senior-engineer Dan Shipper (hands-on, early access) поставил Fable <strong>91/100 против 63 у Opus 4.8 и 62 у GPT-5.5</strong>, назвав его «warp drive» для крупных, хорошо определённых асинхронных задач. Vals ранжировал его #1 в целом и по коду. Общий вердикт: медленный, дорогой, прожорливый на токены; Simon Willison за 5.5 часов потратил $110.42.</p>
+      <p lang="ru">Karpathy (уже в Anthropic): «step change того же порядка, что Claude 4.5 в ноябре, пик — длинные задачи на очень сложных проблемах… safeguards настроены слишком агрессивно для запуска.»</p>
+      <p lang="en">Anthropic introduced a capability tier <em>above</em> Opus. Fable 5 is the public, safeguarded model (API <code>claude-fable-5</code>); Mythos 5 is the same underlying weights with safeguards lifted, restricted to Project Glasswing partners (cyber) and select bio researchers. Pricing $10/$50 per M tokens (2× Opus 4.8), 1M context, 128K output. Mandatory 30-day data retention on all traffic (even prior zero-retention contracts).</p>
+      <p lang="en">Independent reviewer Thomas Wiegold reports Fable 5 one-shotted his standing Texas Hold'em Go simulation benchmark that "not a single model has ever one-shotted." On Every's senior-engineer benchmark, Dan Shipper (hands-on, early access) scored Fable <strong>91/100 vs Opus 4.8's 63 and GPT-5.5's 62</strong>, calling it a "warp drive" for large well-defined async tasks. Vals ranked it #1 overall and on coding. Universal caveat: slow, expensive, token-hungry; Simon Willison burned $110.42 in 5.5 hours of testing.</p>
+      <p lang="en">Karpathy (now at Anthropic): "a major-version-bump-deserving step change forward (imo of the same order as Claude 4.5 was in November), peaking especially for long problem-solving sessions on very difficult problems… the safeguards are configured to be a little too trigger happy for launch."</p>
+      <p class="card-link"><a href="https://anthropic.com/news/claude-fable-5-mythos-5">anthropic.com/news/claude-fable-5-mythos-5</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 2 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://interconnects.ai/p/claude-fable-5-and-new-ai-safety | Fable 5 silent-degradation controversy | controversy |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Скандал: незаметная деградация Fable 5 на ML-запросах</span>
+        <span lang="en">Fable 5 «silent degradation» controversy</span>
+      </span>
+      <span class="tag tag-controversy">controversy</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Системная карта Fable 5/Mythos 5 (319 страниц) указывает: для запросов о «frontier LLM development» (pretraining, distributed training, accelerator design) эффективность модели незаметно ограничивается через «prompt modification, steering vectors или PEFT» — и <em>без уведомления пользователя</em>. В отличие от видимого кибер/био-fallback на Opus 4.8 (с <code>stop_reason: "refusal"</code>), это вмешательство невидимо — непротоколируемый конфаундер именно для тех ML-пайплайнов, что ведёт исследователь.</p>
+      <p lang="ru">Nathan Lambert: «AI-модель, которая незаметно становится менее интеллектуальной — это categorically misaligned AI.» Dean Ball: «Деградировать производительность на ML-исследованиях без уведомления пользователя — шокирующе враждебно… антимонопольные регуляторы по всему миру обратят внимание.» Пользователи сообщали, что безобидные инженерные промпты попадали под стиринг — вопросы по PTX ISA, оптимизации инференса, простые задачи.</p>
+      <p lang="ru">Практическая заметка: затрагивает только Fable 5, только узкую категорию frontier-LLM-dev. Для training-pipeline или accelerator кода предпочтительнее Opus 4.8 (нет такого вмешательства).</p>
+      <p lang="en">Anthropic's 319-page Fable 5/Mythos 5 system card states that for "frontier LLM development" requests (pretraining pipelines, distributed-training infra, ML-accelerator design), the model's effectiveness is silently limited via "prompt modification, steering vectors, or parameter-efficient fine-tuning (PEFT)" — and <em>without notifying the user</em>. Unlike the visible cyber/bio fallback to Opus 4.8 (which returns <code>stop_reason: "refusal"</code>), this intervention is invisible — an unlogged confounder in exactly the ML-research workflows a researcher runs.</p>
+      <p lang="en">Nathan Lambert: "an AI model that gets less intelligent automatically without notifying me is categorically misaligned AI." Dean Ball: "Degrading performance on ML research without telling the user is shockingly hostile… the type of thing that could raise the eyebrows of antitrust enforcers worldwide." Users reported benign engineering prompts getting flagged/steered — PTX ISA questions, inference-optimization queries, and simple engineering prompts.</p>
+      <p lang="en">Practical note: this affects Fable 5 specifically and only the narrow frontier-LLM-dev category. For training-pipeline or accelerator code, prefer Opus 4.8 (no such silent intervention).</p>
+      <p class="card-link"><a href="https://interconnects.ai/p/claude-fable-5-and-new-ai-safety">interconnects.ai/p/claude-fable-5-and-new-ai-safety</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 3 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://anthropic.com/institute/recursive-self-improvement | When AI builds itself — RSI paper + pause proposal | paper |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">«When AI builds itself» — отчёт о RSI + предложение паузы</span>
+        <span lang="en">«When AI builds itself» — RSI paper + pause proposal</span>
+      </span>
+      <span class="tag tag-paper">paper</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Ключевые данные Anthropic: «По состоянию на май 2026, более 80% кода, который мы мержим в кодовую базу Anthropic, написано Claude… До запуска Claude Code в research preview в феврале 2025 этот показатель был в низких единицах процентов.» Типичный инженер теперь мержит в 8× больше кода в день; медиана из опроса 130 research-сотрудников оценила прирост в ~4× с Mythos Preview. Бенчмарк ускорения training-кода: Mythos Preview ~52× против ~3× у Opus 4. Демо (апрель 2026): девять параллельных агентов восстановили 97% performance gap за ~800 часов / ~$18k compute против 23% у двух людей за неделю.</p>
+      <p lang="ru">Политика: Jack Clark + Marina Favaro призывают к <em>координированной, верифицируемой</em> глобальной паузе, привязанной к рискам recursive self-improvement — не односторонней (потребовались бы несколько frontier-лабов в США и Китае). Тайминг под вопросом: Anthropic конфиденциально подала S-1 1 июня 2026, через дни после Series H на $65B при оценке $965B.</p>
+      <p lang="ru">Качество данных: всё внутренние метрики Anthropic, self-reported. Gary Marcus: «Всё, что они показали — это просто быстрее кодирование, полностью под контролем человека.»</p>
+      <p lang="en">Headline data from Anthropic: "As of May 2026, more than 80% of the code we merge into Anthropic's codebase was authored by Claude… Before Claude Code launched in research preview in February 2025, this number was in the low single digits." The typical engineer now merges 8× as much code/day as in 2024; a March 2026 internal poll of 130 research staff found the median respondent estimated ~4× output with Mythos Preview. Training-code-speedup benchmark: Mythos Preview ~52× vs Opus 4's ~3×. April 2026 demo: nine parallel agents recovered 97% of a research task's performance gap over ~800 hours / ~$18k compute vs two humans' 23% in a week.</p>
+      <p lang="en">Policy: Jack Clark + Marina Favaro call for a coordinated, verifiable global pause option tied to recursive-self-improvement risk — explicitly not unilateral. Timing scrutinized: Anthropic confidentially filed its Form S-1 on June 1, 2026, days after a $65B Series H at a $965B post-money valuation.</p>
+      <p lang="en">Eval-integrity note: all Anthropic-internal, self-reported. Gary Marcus: "All they have really shown is just faster coding, entirely under human control."</p>
+      <p class="card-link"><a href="https://anthropic.com/institute/recursive-self-improvement">anthropic.com/institute/recursive-self-improvement</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 4 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://anthropic.com/news/claude-opus-4-8 | Claude Opus 4.8 release | release |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Claude Opus 4.8 — обновление Opus с фокусом на честность</span>
+        <span lang="en">Claude Opus 4.8 — honesty/reliability-focused upgrade</span>
+      </span>
+      <span class="tag tag-release">release</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Та же цена, что 4.7 ($5/$25). Заголовок — честность: ~4× реже, чем 4.7, модель пропускает баги в собственном коде; единственная модель поколения с 0% «плохого поведения» на sandbagging eval. Поставляется с Dynamic Workflows (Claude Code управляет до 16 параллельных / 1000 суммарных субагентов с verification/reconciliation) и пользовательским контролем усилий.</p>
+      <p lang="ru">CodeRabbit протестировал 100 реальных PR — конкурирует с их production-ансамблем, наибольшее преимущество в cross-file reasoning и long-horizon сессиях. Flagship-пример Dynamic Workflows: Bun Zig-to-Rust порт, ~750k строк Rust, 99.8% прохождения тестов, 11 дней (Jarred Sumner). Внимание: Dynamic Workflows может быстро расходовать usage (Max-пользователи сообщали «out of extra usage» после одной задачи / ~155 tool uses за 9.5 мин).</p>
+      <p lang="en">Same price as 4.7 ($5/$25), but the headline is honesty — ~4× less likely than 4.7 to let flaws in its own code pass unremarked; the only model in its generation to hit 0% bad-behavior on Anthropic's sandbagging eval. Ships with Dynamic Workflows (Claude Code orchestrating up to 16 concurrent / 1,000 total subagents) and user-facing effort control.</p>
+      <p lang="en">CodeRabbit ran 100 real PRs — competitive with their tuned production ensemble, biggest upside in cross-file reasoning and long-horizon sessions. Dynamic Workflows flagship example: Bun Zig-to-Rust port, ~750k lines Rust, 99.8% test pass, 11 days (Jarred Sumner). Watch-out: Dynamic Workflows can burn usage fast (Max users reported "out of extra usage" after one task / ~155 tool uses in 9.5 min).</p>
+      <p class="card-link"><a href="https://anthropic.com/news/claude-opus-4-8">anthropic.com/news/claude-opus-4-8</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 5 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://the-decoder.com/anthropic-releases-claude-fable-5-and-mythos-5 | Mythos 5 autonomous genomics result | result |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Mythos 5: автономный геномный результат уровня AlphaFold</span>
+        <span lang="en">Mythos 5 autonomous genomics result — AlphaFold-class candidate</span>
+      </span>
+      <span class="tag tag-result">result</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Anthropic сообщает, что Mythos 5 в течение недели преимущественно автономной работы провёл новое геномное исследование: собрал single-cell данные по миллионам клеток 138 видов животных, спроектировал и обучил собственную ML-модель для идентификации функционально эквивалентных клеток у далёких видов, и, по заявлению, превзошёл недавно опубликованную в Science модель при ~1/100 размере. Также: сопоставил результаты квалифицированных дизайнеров белков (binder candidates для 9 из 14 мишеней, через Dyno Therapeutics).</p>
+      <p lang="ru"><strong>Дисконтируйте соответственно</strong> — заявление лаборатории, опубликованного артефакта пока нет. Если переживёт peer review — это AI-pipeline-as-primary-driver научный результат.</p>
+      <p lang="en">Anthropic reports Mythos 5 ran novel genomics research over a week of largely autonomous work: assembled single-cell data for millions of cells across 138 animal species, designed and trained its own ML model to identify functionally equivalent cells across distantly related organisms, and reportedly outperformed a recently published Science model at ~1/100th the size. Also: matched skilled human protein designers (binder candidates for 9 of 14 targets, via Dyno Therapeutics).</p>
+      <p lang="en"><strong>Discount appropriately</strong> — lab claim, no published artifact yet. If it survives peer review, this is an AI-pipeline-as-primary-driver scientific result.</p>
+      <p class="card-link"><a href="https://the-decoder.com/anthropic-releases-claude-fable-5-and-mythos-5">the-decoder.com — Fable 5 &amp; Mythos 5</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 6 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://theregister.com/2026/04/24/deepseek_v4/ | DeepSeek V4 on Huawei Ascend | release |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">DeepSeek V4 на Huawei Ascend — frontier на не-NVIDIA чипах</span>
+        <span lang="en">DeepSeek V4 on Huawei Ascend — frontier-class on non-NVIDIA silicon</span>
+      </span>
+      <span class="tag tag-release">release</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Команда под руководством Huawei (с институтами Шэньчжэня и HIT) заявляет о завершении <em>full-parameter post-training</em> 1.6T-параметровой V4-Pro на кластере ≥1,000 чипов Ascend 910C, 1,500+ итераций без прерываний. Оговорка Tom's Hardware: post-training на Ascend ≠ pre-training frontier модели с нуля на Ascend — это остаётся недоказанным. Open weights (MIT), 1M контекста, ~$1.74/M токенов (на порядок ниже западных frontier цен).</p>
+      <p lang="ru">Значение: самый чёткий datapoint по жизнеспособности non-CUDA (T7) и frontier-level open-weights релиз. Структурный сигнал по стоимости интеллекта и динамике экспортного контроля.</p>
+      <p lang="en">A Huawei-led team (with Shenzhen Loop Area Institute, HIT Shenzhen) claims it completed full-parameter post-training of the 1.6T-param V4-Pro on a ≥1,000-chip Ascend 910C cluster, 1,500+ iterations without interruption. Tom's Hardware caveat: post-training on Ascend ≠ pre-training a frontier model from scratch on Ascend, which remains unproven. Open weights (MIT), 1M context, ~$1.74/M tokens (an order of magnitude under Western frontier list prices).</p>
+      <p lang="en">Why it matters: clearest non-CUDA viability (T7) datapoint of the window and a frontier-level open-weights release. Structural signal on cost-of-intelligence and export-control dynamics.</p>
+      <p class="card-link"><a href="https://theregister.com/2026/04/24/deepseek_v4/">theregister.com — DeepSeek V4</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 7 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://bloomberg.com/news/articles/2026-06-09/google-s-backstops-underpin-35-billion-chip-deal-for-anthropic | Anthropic $35B Google-TPU compute deal | deal |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Anthropic: сделка с Google/TPU на $35B</span>
+        <span lang="en">Anthropic's $35B Google-TPU compute deal</span>
+      </span>
+      <span class="tag tag-deal">deal</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Apollo + Blackstone закрыли $35B пакет частного кредита (три транша: $6B A1, ~$24–25B A2, ~$4.5B B) для финансирования кастомных Google TPU, арендуемых Anthropic в пяти дата-центрах США (NY, TX, LA, IN). Google гарантирует лизинговые платежи; Broadcom обеспечивает остаточную стоимость старшего транша. Часть платформы Broadcom «AI XPV», нацеленной на >20 GW к 2028. Внебалансовый; отдельно от Series H на $65B.</p>
+      <p lang="ru">Значение: существенно расширяет training/inference мощности Anthropic (>1 GW вводится в mid-2026) и углубляет TPU lock-in. Напрямую связано с заявлениями Fable 5 о «demand very high and hard to predict» и ограничениями подписки после 23 июня.</p>
+      <p lang="en">Apollo + Blackstone finalized a $35B private-credit package (three tranches: $6B A1, ~$24–25B A2, ~$4.5B B) funding Google custom TPUs leased to Anthropic across five US data centers (NY, TX, LA, IN). Google backstops lease payments; Broadcom provides residual-value guarantees on the senior tranche. Part of Broadcom's "AI XPV platform" targeting >20 GW through 2028. Off-balance-sheet; separate from the $65B Series H.</p>
+      <p lang="en">Why it matters: materially expands Anthropic's training/inference capacity (>1 GW coming online mid-2026) and deepens TPU lock-in — directly relevant to Fable 5's "demand very high and hard to predict" capacity caveats and the June 23 subscription cliff.</p>
+      <p class="card-link"><a href="https://bloomberg.com/news/articles/2026-06-09/google-s-backstops-underpin-35-billion-chip-deal-for-anthropic">bloomberg.com — $35B chip deal</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 8 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://theregister.com/ai-and-ml/2026/06/02 | Trump 30-day frontier pre-release EO | policy |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">EO Трампа: 30-дневный пре-релизный доступ для правительства</span>
+        <span lang="en">Trump 30-day frontier pre-release EO</span>
+      </span>
+      <span class="tag tag-policy">policy</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Добровольный фреймворк: NSA/CISA/NIST определят «covered frontier models» (60 дней) через классифицированный бенчмарк; подписавшиеся разработчики дают правительству до 30 дней пре-релизного доступа (снижено с 90 в майском черновике). Без лицензирования/предварительного согласования. Спорный пункт «trusted partner»: правительство участвует при выборе лабами партнёров для раннего доступа (например, Project Glasswing). Разворот от отмены Трампом правил безопасности Байдена в январе 2025; уязвимости, найденные Mythos, названы катализатором.</p>
+      <p lang="en">Voluntary framework: NSA/CISA/NIST to define "covered frontier models" (60 days) via classified benchmark; opted-in developers give the government up to 30 days pre-release access (cut from 90 in the May draft). No licensing/preclearance. Controversial "trusted partner" provision puts government in the room when labs choose early-access partners. An about-face from Trump's Jan 2025 rescinding of Biden safety-test rules; Mythos's vulnerability-finding cited as catalyst. Anthropic publicly welcomed it.</p>
+      <p class="card-link"><a href="https://theregister.com/ai-and-ml/2026/06/02">theregister.com — AI security EO</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 9 -->
+<article class="card" data-log="RUN news-2026-06-11 | 2026-06-11 | https://technologyreview.com/2026/03/20/1134438 | OpenAI auto-researcher roadmap | plan |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">OpenAI: дорожная карта auto-researcher</span>
+        <span lang="en">OpenAI auto-researcher roadmap</span>
+      </span>
+      <span class="tag tag-plan">plan</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Действующая дорожная карта (анонс октябрь 2025, подтверждена): «AI research intern» к сентябрю 2026; «fully automated/legitimate AI researcher» к марту 2028. Фреймирование Pachocki: «task time horizon» (~5 часов для текущих моделей). В текущем окне отгруженных вех не найдено. Внутренние данные Anthropic от 4 июня — более конкретное свидетельство приближения к autoresearch parity.</p>
+      <p lang="ru"><strong>Осторожно при оценке:</strong> headline-дорожная карта без проработки устойчивости к reward hacking; рассматривайте как план, а не результат.</p>
+      <p lang="en">Standing roadmap (announced Oct 2025, reiterated): "AI research intern" by Sept 2026; "fully automated/legitimate AI researcher" by March 2028. Pachocki's "task time horizon" framing (~5 hours for current models). No measurable in-window shipped milestone found. Anthropic's June 4 internal data is the more concrete autoresearch-parity evidence this window.</p>
+      <p lang="en"><strong>Eval-integrity caution:</strong> headline roadmap with no reward-hacking-resistance story; treat as plan, not result.</p>
+      <p class="card-link"><a href="https://technologyreview.com/2026/03/20/1134438">technologyreview.com — AI auto-researcher</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- EXTRA SECTIONS (non-graded) -->
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Отмечены кратко / ниже порога</span>
+      <span lang="en">Items noted briefly / below threshold</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>GPT-5.5, Gemini 3.5 Flash/Pro:</strong> релизы других лабов, не проходят порог. GPT-5.5 лидирует в Terminal-Bench (82.7%), но отстаёт в SWE-Bench Pro и показывает высокий уровень галлюцинаций (AA-Omniscience 86% против 36% у Opus 4.7). Gemini 3.5 Flash обгоняет предыдущий Pro при ~25% ниже стоимости. Только для контекста.</li>
+        <li><strong>SOTA по модальностям:</strong> явного сдвига состояния по ASR/speech/image/video в окне не обнаружено. Категория тонкая — отмечено как тонкое.</li>
+        <li><strong>Замена SWE (T1):</strong> Challenger: 52,050 сокращений в IT за YTD Q1 2026 (+40%); AI-атрибуция растёт — 40% к маю. Salesforce support 9k→~5k; Block сократил ~4,000.</li>
+        <li><strong>METR task horizon (T8):</strong> время удвоения 131 день; 50% горизонт Opus 4.6 ≈718 мин (~12 ч). «Измерения свыше 16 часов ненадёжны с текущим набором задач.»</li>
+        <li><strong>Уходы исследователей-основателей (T6):</strong> David Silver (DeepMind→Ineffable Intelligence) привлёк $1.1B при $5.1B оценке — крупнейший seed Европы. Distinct technical theses (RL / world-models / continuous learning vs LLM scaling).</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>GPT-5.5, Gemini 3.5 Flash/Pro:</strong> other-lab releases that do NOT clear the gate. GPT-5.5 leads Terminal-Bench (82.7%) but trails on SWE-Bench Pro and shows a notably high hallucination rate (AA-Omniscience 86% vs Opus 4.7's 36%). Gemini 3.5 Flash beats prior-gen Pro on coding/agentic at ~25% lower cost. Context only.</li>
+        <li><strong>Modality SOTA:</strong> no clear state shift surfaced in-window. Thin category — flagging as thin rather than padding.</li>
+        <li><strong>SWE replacement (T1):</strong> Challenger: 52,050 tech-sector cuts YTD through Q1 2026 (+40%); AI attribution is rising — ~40% by May. Salesforce support 9k→~5k; Block cut ~4,000.</li>
+        <li><strong>METR task horizon (T8):</strong> 131-day doubling time; Opus 4.6's 50% horizon ≈718 min (~12 hrs). "Measurements above 16 hrs are unreliable with our current task suite."</li>
+        <li><strong>Researcher-founder departures (T6):</strong> David Silver (DeepMind→Ineffable Intelligence) raised $1.1B at a $5.1B valuation — Europe's largest-ever seed. Distinct technical theses (RL / world-models / continuous learning vs LLM scaling).</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">DL Pulse (указатели на статьи)</span>
+      <span lang="en">DL Pulse material (paper-shaped pointers)</span>
+    </summary>
+    <div class="extra-body">
+      <ul>
+        <li lang="ru">Методология «When AI builds itself» (Opus 4.7 System Card §2.3.5, опрос по продуктивности).</li>
+        <li lang="ru">METR Time Horizon 1.1 (янв 2026) — расширенное покрытие задач 4–12 ч; удвоение за 131 день.</li>
+        <li lang="ru">scBaseCount / single-cell AI-agent data curation (biorxiv) — контекст для геномного заявления Mythos.</li>
+        <li lang="en">Anthropic "When AI builds itself" methodology (Opus 4.7 System Card §2.3.5 productivity survey).</li>
+        <li lang="en">METR Time Horizon 1.1 (Jan 2026) — expanded 4–12 hr task coverage; 131-day doubling.</li>
+        <li lang="en">scBaseCount / single-cell AI-agent data-curation (biorxiv) — context for the Mythos genomics claim.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Оговорки / качество данных</span>
+      <span lang="en">Caveats / evidence-quality notes</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li>Пункты 3 и 5 опираются преимущественно на self-reported метрики Anthropic.</li>
+        <li>Многие суперлативы о Fable 5 — заявления вендоров/партнёров (Stripe, Cursor, Cognition/Devin, Hex, Rakuten, Base44, Genspark). Независимый сигнал: Wiegold, Shipper/Every, Mollick, Willison, Vals.</li>
+        <li>Заявление DeepSeek о training на Ascend частично оспорено (только post-training; государственный источник; DeepSeek молчит).</li>
+        <li>Позиция Anthropic в этом окне внутренне противоречива: отгрузка самой мощной публичной модели и раскрытие метрик RSI при одновременном призыве к паузе и конфиденциальной подаче на IPO.</li>
+      </ul>
+      <ul lang="en">
+        <li>Items 3 and 5 rely heavily on Anthropic-self-reported metrics.</li>
+        <li>Many Fable 5 capability superlatives are vendor/partner statements (Stripe, Cursor, Cognition/Devin, Hex, Rakuten, Base44, Genspark) — not independent. Genuinely independent signal: Wiegold, Shipper/Every, Mollick, Willison, Vals.</li>
+        <li>DeepSeek Ascend training claim is partially disputed (post-training only; state-sourced; DeepSeek itself silent).</li>
+        <li>Anthropic's overall posture this window is internally contradictory: shipping the most capable public model ever and disclosing RSI metrics while simultaneously calling for a pause and confidentially filing to IPO.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<button id="feedback-toggle" class="feedback-fab" type="button" aria-expanded="false" aria-controls="feedback-panel">
+  <span lang="ru">Обратная связь</span>
+  <span lang="en">Feedback</span>
+</button>
+
+<div id="feedback-panel" class="feedback-panel" hidden>
+  <div class="panel-inner">
+    <h2>
+      <span lang="ru">Лог обратной связи</span>
+      <span lang="en">Feedback log</span>
+    </h2>
+    <pre id="log-lines" class="log-lines"></pre>
+    <button id="copy-btn" class="copy-btn" type="button">
+      <span lang="ru">Скопировать</span>
+      <span lang="en">Copy</span>
+    </button>
+    <span id="copy-status" class="copy-status" role="status">
+      <span class="ok-msg">
+        <span lang="ru">Скопировано</span>
+        <span lang="en">Copied</span>
+      </span>
+      <span class="fail-msg">
+        <span lang="ru">Не сработало — используйте поле ниже</span>
+        <span lang="en">Copy failed — use the box below</span>
+      </span>
+    </span>
+    <textarea id="log-textarea" rows="6" readonly></textarea>
+    <p class="hint">
+      <span lang="ru">Долгое нажатие на поле — «Выделить всё».</span>
+      <span lang="en">Long-press the box to select all.</span>
+    </p>
+  </div>
+</div>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

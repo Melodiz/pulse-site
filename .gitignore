@@ -1,3 +1,4 @@
 .env
 bot/env
 bot/data/
+.DS_Store
