@@ -144,9 +144,28 @@ fi
 - Notify: ok:true + message_id / ok:false + description / skipped (no .env) —
   never the token, the URL, or the curl command
 
+## Bot reminders (cron-only)
+
+`bot/` holds the render-reminder mechanism. **v1 runs no daemon** — reminders are
+cron + `curl` to Telegram `sendMessage`, nothing listening, no inbound ports.
+
+- `bot/remind.sh` — POSIX sh; `remind.sh [env_file] <text>` sends one reminder and
+  prints only the parsed result. Same token hygiene as the notify block: the URL
+  embeds the token, so it's built in a variable and never echoed; curl stderr is
+  discarded (it can leak the URL).
+- `bot/crontab.pulse` — the delimited crontab block (MSK server-local time):
+  Mon = News, Tue/Fri = DL Pulse, first Mon/month = Trends.
+- `bot/env.example` — placeholders only. The **real env is hand-placed by Ivan** at
+  `~/bots/pulse_bot/env` on the VPS (mode 600) and at repo-root `.env` locally;
+  neither is committed (both gitignored). Nothing under `bot/` ever carries a real token.
+- Deploy = `./bot/deploy.sh` (ships `remind.sh` + `crontab.pulse` to `yandex-vps`,
+  scoped to `~/bots/pulse_bot/`, installs the crontab block idempotently). Gated on
+  Ivan placing the token first.
+
 ## Repo map
 
     docs/            Pages root: index.html, <date>-<source>.html pages, assets/
     inbox/           digest MD drop (input)
-    bot/             reserved for the Telegram bot (later stage)
-    .env             local only, gitignored: BOT_TOKEN, CHAT_ID (may not exist yet)
+    bot/             reminder mechanism: remind.sh, crontab.pulse, env.example, deploy.sh
+    bot/env          VPS-only, gitignored, hand-placed (mode 600): BOT_TOKEN, CHAT_ID
+    .env             local only, gitignored: BOT_TOKEN, CHAT_ID

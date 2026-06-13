@@ -1,0 +1,22 @@
+# >>> pulse reminders >>>
+# pulse-site render reminders — one-way Telegram nudges, cron-only (no daemon).
+#
+# TIMES ARE SERVER-LOCAL. The box is MSK (UTC+3) right now, so 09:00 here =
+# 09:00 Moscow. If the VPS is ever moved to UTC+8, REVISIT the hour fields
+# below (and this comment) — the schedule is anchored to MSK wall-clock.
+#
+# Schedule (per render_spec):
+#   - Mon          -> "News run"
+#   - Tue + Fri    -> "DL Pulse run"
+#   - 1st Mon/month-> "Trends run"   (cron can't express "first Monday", so
+#                     dow=Mon + a day-of-month<=7 guard lives in the command;
+#                     date +\%-d is escaped because cron treats bare % specially)
+#
+# On the first Monday both "News run" (09:00) and "Trends run" (09:05) fire —
+# the 5-min offset keeps them as two distinct, ordered messages.
+#
+# m  h  dom mon dow  command
+  0  9  *   *   1    /home/melodiz/bots/pulse_bot/remind.sh /home/melodiz/bots/pulse_bot/env "News run: render this week's news digest"
+  0  9  *   *   2,5  /home/melodiz/bots/pulse_bot/remind.sh /home/melodiz/bots/pulse_bot/env "DL Pulse run: render the deep-learning pulse digest"
+  5  9  *   *   1    [ "$(date +\%-d)" -le 7 ] && /home/melodiz/bots/pulse_bot/remind.sh /home/melodiz/bots/pulse_bot/env "Trends run: render the monthly trends digest (first Monday)"
+# <<< pulse reminders <<<
