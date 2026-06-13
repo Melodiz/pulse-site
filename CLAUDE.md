@@ -74,8 +74,10 @@ Live site: https://melodiz.github.io/pulse-site/
   orchestrator project, not into a render run. Bump `?v=` only if an asset actually
   changed (it shouldn't, except the new-type color rule above).
 - File naming: `docs/<date>-<source>.html`, `<source>` ∈ {`news`, `trends`}.
-- **Update `docs/index.html`**: new entry on top of the list — NEWS/TRENDS tag,
-  date, title (RU+EN), item count.
+- **Update `docs/index.html`**: add the new entry, then **sort the entire digest
+  list by date, newest first** — insertion order is irrelevant, re-sort the full
+  `<ul class="digest-list">` on every render (ties: keep stable). Each entry:
+  NEWS/TRENDS tag (+ FIXTURE badge if applicable), date, title (RU+EN), item count.
 
 ## Verification (before pushing)
 
@@ -95,12 +97,43 @@ Live site: https://melodiz.github.io/pulse-site/
 
 ## Telegram notify
 
-- If `.env` exists at repo root (it defines `BOT_TOKEN` and `CHAT_ID`): source it and
-  curl `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage` with `chat_id` and a
-  short message containing the new page URL. Report only the HTTP status.
-- **NEVER print, echo, or log the token** — no `cat .env`, no `echo $BOT_TOKEN`, no
-  pasting the resolved URL into output. Reference `.env` by path only.
-- If `.env` is absent: skip, and say so in the report (bot wiring is a later stage).
+Run this exact block **after a successful push** (set `DIGEST` + `PAGE_URL` to the
+digest you just rendered). It is self-contained and prints only a parsed result.
+
+```bash
+# --- Telegram notify — never prints the token, the URL, or the curl command ---
+set -a; [ -f .env ] && . ./.env; set +a
+DIGEST="News 2026-06-11"                                            # source + date of this run
+PAGE_URL="https://melodiz.github.io/pulse-site/2026-06-11-news.html"
+if [ -z "${BOT_TOKEN:-}" ] || [ -z "${CHAT_ID:-}" ]; then
+  echo "notify: skipped (.env absent or BOT_TOKEN/CHAT_ID unset)"
+else
+  API_URL="https://api.telegram.org/bot${BOT_TOKEN}/sendMessage"   # contains token — NEVER echo
+  TEXT="AI-Tech Field Pulse — ${DIGEST} rendered: ${PAGE_URL}"
+  RESP=$(curl --silent --show-error \
+    --data-urlencode "chat_id=${CHAT_ID}" \
+    --data-urlencode "text=${TEXT}" \
+    "$API_URL" 2>/tmp/notify.err); CURL_RC=$?
+  if [ $CURL_RC -ne 0 ]; then
+    echo "notify: curl failed (exit $CURL_RC)"                     # do NOT print stderr — it may contain the URL
+  elif [ "$(printf '%s' "$RESP" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("ok"))')" = "True" ]; then
+    MID=$(printf '%s' "$RESP" | python3 -c 'import sys,json;print(json.load(sys.stdin)["result"]["message_id"])')
+    echo "notify: ok:true (message_id ${MID})"
+  else
+    DESC=$(printf '%s' "$RESP" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("description",""))')
+    echo "notify: ok:false — ${DESC}"                              # Telegram's description never contains the token
+  fi
+  rm -f /tmp/notify.err
+fi
+```
+
+- **The notify URL embeds the token** (`…/bot<TOKEN>/sendMessage`). NEVER print the
+  curl command or the URL — build it in a variable (`API_URL`), pass it positionally,
+  and report only the parsed result (`ok:true` + `message_id`, or `ok:false` + the
+  Telegram `description`). Telegram echoes the token in no response field; curl's
+  stderr can, so it is captured to a file and discarded, never printed.
+- **NEVER `cat .env` / `echo $BOT_TOKEN` / `echo $CHAT_ID`.** Reference `.env` by path.
+- If `.env` is absent or either var is empty: skip with the printed note above.
 
 ## Report format (every run ends with this)
 
@@ -108,7 +141,8 @@ Live site: https://melodiz.github.io/pulse-site/
 - Parse warnings / synthesis notes (incl. any new type → color mappings)
 - Push result
 - Live URL
-- Notify: sent (HTTP status) / skipped (no .env)
+- Notify: ok:true + message_id / ok:false + description / skipped (no .env) —
+  never the token, the URL, or the curl command
 
 ## Repo map
 
