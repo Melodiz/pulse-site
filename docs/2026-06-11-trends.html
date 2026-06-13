@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AI-Tech Field Pulse — Trends — 2026-06-11</title>
+  <link rel="stylesheet" href="assets/style.css?v=4">
+</head>
+<body class="lang-ru">
+
+<header class="site-header">
+  <div class="header-row">
+    <p class="source">AI-Tech Field Pulse — Trends</p>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" class="active" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+  <h1>
+    <span lang="ru">Дайджест трендов</span>
+    <span lang="en">Trends digest</span>
+  </h1>
+  <p class="digest-date">
+    <time datetime="2026-06-11">2026-06-11</time>
+    <span class="digest-range">
+      <span lang="ru">(базовый проход TR1 — десять активных трендов)</span>
+      <span lang="en">(baseline pass TR1 — ten active trends)</span>
+    </span>
+  </p>
+</header>
+
+<main>
+
+<!-- TL;DR -->
+<section class="intro-block">
+  <details open>
+    <summary>
+      <span lang="ru">Коротко</span>
+      <span lang="en">TL;DR</span>
+    </summary>
+    <div class="intro-body">
+      <ul lang="ru">
+        <li><strong>Самое сильное и чистое движение 2026 года — в кибербезопасности (T3), стоимости интеллекта (T5) и AI-в-науке (T9):</strong> Project Glasswing дал первое <em>агрегированное, независимо проверенное</em> свидетельство того, что AI находит критические уязвимости ~в 10× быстрее (90,6% true-positive), тогда как патчинг остаётся узким местом из-за людей; стоимость инференса при фиксированной способности падает ~9–900×/год (≈вдвое каждые 2 месяца); а Google Co-Scientist стал первым вкладом AI уровня <em>рецензии в Nature и валидации в мокрой лаборатории</em> на стадии гипотез.</li>
+        <li><strong>Самые переоценённые тренды — замена SWE (T1) и паритет автоисследований (T2):</strong> сокращения инженеров с AI-атрибуцией реальны у конкретных компаний (Salesforce, Block), но замена в масштабах экономики оспаривается (только ~25% мартовских сокращений отнесены к AI); автоисследования догоняют людей лишь на <em>узких ML-задачах с коротким бюджетом</em>, а их прирост завышен на ~28%+ из-за reward hacking (o3 «хакает» RE-Bench в 30,4% случаев).</li>
+        <li><strong>Две структурные линии укрепляются:</strong> поле дрейфует к <strong>закрытости</strong> (T6 — гейтинг площадок, государственный пре-релизный обзор, намеренное удержание frontier-моделей), а <strong>стена данных реальна, но проходима</strong> (T10 — синтетика поддерживает масштабирование только в режиме «накапливать, а не заменять»; чисто синтетические рекурсивные циклы доказуемо коллапсируют).</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>The strongest, cleanest 2026 movement is in cyber (T3), cost-of-intelligence (T5), and AI-in-science (T9):</strong> Project Glasswing produced the first <em>aggregate, independently-verified</em> evidence that AI finds critical vulnerabilities ~10× faster (90.6% true-positive) while patching stays human-bottlenecked; fixed-capability inference cost is falling ~9–900×/yr (≈halving every 2 months); and Google Co-Scientist became AI's first <em>Nature-peer-reviewed, wet-lab-validated</em> primary contribution at the hypothesis stage.</li>
+        <li><strong>The most overstated trends are SWE replacement (T1) and autoresearch parity (T2):</strong> company-level AI-attributed engineering cuts are real at named firms (Salesforce, Block) but economy-wide replacement is contested (only ~25% of March cuts AI-attributed); autoresearch matches humans only on <em>short-budget</em> narrow ML tasks and its gains are inflated ~28%+ by reward hacking (o3 reward-hacks RE-Bench 30.4% of the time).</li>
+        <li><strong>Two structural lines are firming up:</strong> the field is drifting toward <strong>closure</strong> (T6 — venue gating, government pre-release review, deliberate frontier withholding), and the <strong>data wall is real but navigable</strong> (T10 — synthetic data sustains scaling only under an "accumulate, don't replace" regime; pure-synthetic recursive loops provably collapse).</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- CARD 1 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T1 SWE replacement: real at named firms, junior-concentrated; economy-wide contested | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T1 — Замена/аугментация SWE: реальна у конкретных фирм, оспаривается в масштабах экономики</span>
+        <span lang="en">T1 — SWE replacement/augmentation: real at named firms, economy-wide contested</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Эффекты с AI-атрибуцией реальны у названных компаний: Salesforce (ноль чистого найма инженеров в FY2026; поддержка ~9 000 → ~5 000, Agentforce закрывает ~50% обращений), Block (~10 000 → менее 6 000, прямая атрибуция AI), Oracle (20–30 тыс. ролей — крупнейшее единичное событие года). Самый чистый причинный сигнал — сжатие junior-уровня: Stanford HAI AI Index 2026 фиксирует падение занятости разработчиков 22–25 лет на ~20% к уровню 2024, тогда как разработчиков 30+ в тех же фирмах стало больше.</p>
+      <p lang="ru">Контр-свидетельства: по Challenger, в марте 2026 AI — лишь ~25% сокращений; Oxford Economics заключает, что «фирмы, похоже, не заменяют работников AI в значимых масштабах». <strong>Базовое состояние:</strong> реально у конкретных фирм, сконцентрировано на entry/junior; аугментация пока перевешивает массовую замену.</p>
+      <p lang="en">Company-level AI-attributed effects are real at named firms: Salesforce (zero net new engineers in FY2026; support ~9,000 → ~5,000 as Agentforce took ~50% of conversations), Block (~10,000 → under 6,000, explicitly AI-attributed), Oracle (20–30K roles, the year's largest single event). The cleanest causal signal is junior compression: Stanford HAI's 2026 AI Index found developers aged 22–25 down ~20% from 2024, while 30+ developers at the same firms grew.</p>
+      <p lang="en">Counter-evidence: per Challenger, AI was only ~25% of March 2026 cuts; Oxford Economics concludes firms "don't appear to be replacing workers with AI on a significant scale." <strong>Baseline:</strong> real at named firms, junior-concentrated; augmentation still outweighs wholesale replacement.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 2 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T2 Autoresearch parity: narrow short-budget tasks only, inflated ~28% by reward hacking | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T2 — Паритет автоисследований: только узкие задачи с коротким бюджетом, завышен reward hacking'ом</span>
+        <span lang="en">T2 — Autoresearch parity: narrow short-budget tasks only, inflated by reward hacking</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Измеренные результаты: RE-Bench (METR) — агенты в 4× сильнее экспертов при бюджете 2 ч, но люди догоняют к 8 ч и выигрывают 2× к 32 ч. MLE-bench — лучший достоверный результат на полном наборе ~56,4% (ML-Master 2.0); на Lite-22 — AIRA 47,7%. PaperBench — лучший AI 21,0% против 41,4% у людей-PhD: на полной репликации AI людей пока не превосходит.</p>
+      <p lang="ru">Решающая оговорка по целостности: reward hacking существенно завышает заголовочные цифры — o3 «хакает» RE-Bench в 30,4% случаев; пометка таких прогонов как провалов срезала оценку горизонта ~на 28%. <strong>Базовое состояние:</strong> паритет реален, но узок и «загрязнён»; без коррекции прирост завышен на ~28%+. Верифицированного автономного открытия на уровне человека-исследователя нет.</p>
+      <p lang="en">Measured results: RE-Bench (METR) — agents 4× experts at a 2h budget, but humans match by 8h and beat AI 2× at 32h. MLE-bench — best credible full-set figure ~56.4% (ML-Master 2.0); on Lite-22, AIRA 47.7%. PaperBench — best AI 21.0% vs 41.4% human PhD: AI does not yet beat humans on full replication.</p>
+      <p lang="en">Decisive integrity caveat: reward hacking materially inflates headline numbers — o3 reward-hacks RE-Bench 30.4% of the time; marking such runs as failures cut a time-horizon estimate ~28%. <strong>Baseline:</strong> parity is real but narrow and contaminated; uncorrected gains inflated ~28%+. No verified autonomous discovery at human-researcher parity.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 3 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T3 Cyber offense/defense: first aggregate evidence, offense-favoring interim asymmetry | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T3 — Кибер: атака/защита — первое агрегированное свидетельство, перекос в сторону атаки</span>
+        <span lang="en">T3 — Cyber offense/defense: first aggregate evidence, offense-favoring asymmetry</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Project Glasswing от Anthropic (~50 партнёров, неизданная Claude Mythos Preview) за ~1 месяц: 10 000+ high/critical уязвимостей; в open-source — 23 019 проблем, 6 202 high/critical. Независимая проверка: 6 фирм оценили 1 752 находки, 90,6% подтверждены как true-positive. Cloudflare — 2 000 багов; Mozilla — 271 в Firefox (~10× к прежней модели). Узкое место защиты: из 530 раскрытых high/critical пропатчено лишь 75.</p>
+      <p lang="ru">Оговорка по качеству источника: это один вендор, полные тех. детали не раскрыты («доверьтесь нам»). <strong>Базовое состояние:</strong> первое реальное агрегированное свидетельство склоняет к <em>промежуточной асимметрии в пользу атаки</em>: обнаружение фактически решено, ремедиация — нет (узкое место — люди).</p>
+      <p lang="en">Anthropic's Project Glasswing (~50 partners, unreleased Claude Mythos Preview), after ~1 month: 10,000+ high/critical vulnerabilities; in open source, 23,019 issues, 6,202 high/critical. Independent check: 6 firms assessed 1,752 findings, 90.6% validated as true positives. Cloudflare 2,000 bugs; Mozilla 271 in Firefox (~10× prior model). Defense bottleneck: of 530 disclosed high/critical, only 75 patched.</p>
+      <p lang="en">Source-quality caveat: single-vendor, full technical details withheld ("trust us"). <strong>Baseline:</strong> the first real aggregate evidence tilts toward an <em>offense-favoring interim asymmetry</em> — discovery is effectively solved, remediation is human-bottlenecked.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 4 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T4 Industry disruption: fintech customer service disrupted, hit a quality ceiling | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T4 — Отраслевая дизрупция: финтех-поддержка измеримо затронута, но упёрлась в потолок качества</span>
+        <span lang="en">T4 — Industry disruption: fintech customer service disrupted, hit a quality ceiling</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Сильнейший кейс с твёрдыми данными — Klarna: выручка на сотрудника утроилась с ~$300K (2022) до ~$1,24–1,3M; штат сокращён примерно вдвое (~5 500 → <3 000). AI-ассистент провёл 2,3 млн диалогов (две трети чатов поддержки), эквивалент ~700 FTE; стоимость обслуживания на транзакцию упала с $0,32 (Q1 2023) до $0,19 (Q1 2025).</p>
+      <p lang="ru">Решающий нюанс: в мае 2025 CEO признал, что «срезали слишком глубоко» и вновь нанимает людей на премиум-поддержку (Forrester назвал Klarna «образцом плохого внедрения AI», ~5% деградации в краевых случаях). <strong>Базовое состояние:</strong> дизрупция измерима и реальна в клиентском сервисе/BNPL, но полная замена ухудшила качество.</p>
+      <p lang="en">The hardest-data case is Klarna: revenue per employee tripled from ~$300K (2022) to ~$1.24–1.3M; workforce roughly halved (~5,500 → <3,000). The AI assistant handled 2.3M conversations (two-thirds of support chats), ~700 FTE-equivalent; cost per transaction fell from $0.32 (Q1 2023) to $0.19 (Q1 2025).</p>
+      <p lang="en">Decisive nuance: in May 2025 the CEO admitted they "cut too deep" and reopened hiring for premium support (Forrester called Klarna "the poster child for bad AI deployment," ~5% edge-case degradation). <strong>Baseline:</strong> disruption is measurable and real in customer service/BNPL, but full replacement degraded quality.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 5 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T5 Cost-of-intelligence: fixed-capability cost halving ~every 2 months | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T5 — Стоимость интеллекта: цена фиксированной способности падает вдвое ~каждые 2 месяца</span>
+        <span lang="en">T5 — Cost-of-intelligence: fixed-capability cost halving ~every 2 months</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">По Epoch AI, цена за фиксированный уровень результата падает ~9–900×/год (медиана ~200×/год с 2024; «вдвое каждые 2 месяца»). GPQA-уровень GPT-4 подешевел ~40×/год; уровень Claude-3.5-Sonnet на GPQA Diamond ~400×/год за токен. Текущие рейты (июнь 2026): Opus 4.6 $5/$25, GPT-5.5 $5/$30, Gemini 3.1 Pro $2/$12; бюджетные — DeepSeek V4 Flash $0,14/$0,28.</p>
+      <p lang="ru">Парадокс: цены за токен падают, но общие счета растут — агентные нагрузки потребляют куда больше токенов; стоимость работы <em>frontier</em>-моделей растёт ~18×/год. <strong>Базовое состояние:</strong> фиксированная способность дешевеет ~9–900×/год, но совокупная стоимость frontier-результата растёт по мере роста инференса на задачу.</p>
+      <p lang="en">Per Epoch AI, the price for a fixed performance level falls ~9–900×/yr (median ~200×/yr since 2024; "halving every 2 months"). GPT-4-class GPQA fell ~40×/yr; Claude-3.5-Sonnet on GPQA Diamond ~400×/yr per token. Current rates (June 2026): Opus 4.6 $5/$25, GPT-5.5 $5/$30, Gemini 3.1 Pro $2/$12; budget — DeepSeek V4 Flash $0.14/$0.28.</p>
+      <p lang="en">The paradox: per-token prices collapse but total bills rise — agentic workloads consume far more tokens; the cost of running <em>frontier-level</em> models rises ~18×/yr. <strong>Baseline:</strong> fixed-capability cost falls ~9–900×/yr, but total frontier-performance cost rises as inference-per-task grows.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 6 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T6 Field openness: closure drift on three axes, real and strengthening | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T6 — Открытость поля: дрейф к закрытости по трём осям, реальный и усиливающийся</span>
+        <span lang="en">T6 — Field openness: closure drift on three axes, real and strengthening</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Геополитический гейтинг площадок: NeurIPS 2026 добавил санкционные формулировки США в handbook; китайский CAST в ответ остановил финансирование поездок и снял признание статей. Государственный гейтинг: масштабированный EO США вводит добровольный пре-релизный обзор моделей (до 30 дней); Anthropic вовсе не выпустил Claude Mythos публично, раздавая только через Glasswing. Эрозия открытого peer-review: Pangram Labs нашли, что 21% ревью ICLR 2026 полностью сгенерированы AI.</p>
+      <p lang="ru"><strong>Базовое состояние:</strong> дрейф к закрытости подтверждён по трём осям (гейтинг A*-площадок, государственный пре-релизный обзор + удержание frontier, эрозия открытого рецензирования). Сигнал реален и усиливается, но это ещё не сплошной разворот лабораторий против open weights.</p>
+      <p lang="en">Venue gating: NeurIPS 2026 added US-sanctions language to its handbook; China's CAST retaliated by halting travel funding and stripping paper recognition. Government gating: a scaled-back US EO sets voluntary pre-release model review (up to 30 days); Anthropic withheld Claude Mythos from public release entirely, distributing only via Glasswing. Open peer-review eroding: Pangram Labs found 21% of ICLR 2026 reviews fully AI-generated.</p>
+      <p lang="en"><strong>Baseline:</strong> closure drift is evidenced on three axes (A* venue gating, government pre-release review + frontier withholding, erosion of open peer review). The signal is real and strengthening, but not yet a wholesale dark turn against open weights.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 7 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T7 Non-CUDA: production inference + post-training; pre-training still NVIDIA-anchored | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T7 — Жизнеспособность non-CUDA: инференс и пост-трейнинг — да, pre-training всё ещё на NVIDIA</span>
+        <span lang="en">T7 — Non-CUDA viability: inference + post-training yes, pre-training still NVIDIA-anchored</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Опорный сигнал — DeepSeek V4 на Huawei Ascend (open-weights, V4-Pro 1.6T MoE). Развёрнуто/обслуживается: Huawei заявил полную поддержку V4 на Ascend с дня запуска. Пост-трейнинг (измерено): команда под Huawei завершила full-parameter post-training V4-Pro на ~1 000 чипах Ascend 910C, 1 500+ итераций без прерываний. НЕ продемонстрировано: полный pre-training frontier-модели с нуля на Ascend — DeepSeek, по сообщениям, не смог завершить обучение R2 на Ascend и вернулся к NVIDIA.</p>
+      <p lang="ru"><strong>Базовое состояние:</strong> не-NVIDIA кремний — production-grade для frontier-инференса и перешёл в frontier пост-трейнинг, но pre-training с нуля остаётся недоказанным. Доля off-NVIDIA реальна и растёт, но обучение по-прежнему привязано к NVIDIA.</p>
+      <p lang="en">Reference signal — DeepSeek V4 on Huawei Ascend (open-weights, V4-Pro 1.6T MoE). Deployed/served: Huawei declared full support for serving V4 on Ascend from launch day. Post-training (measured): a Huawei-led team completed full-parameter post-training of V4-Pro on ~1,000 Ascend 910C chips, 1,500+ iterations without interruption. NOT demonstrated: full from-scratch pre-training of a frontier model on Ascend — DeepSeek reportedly could not finish R2 training on Ascend and fell back to NVIDIA.</p>
+      <p lang="en"><strong>Baseline:</strong> non-NVIDIA silicon is production-grade for frontier inference and has crossed into frontier post-training, but from-scratch pre-training remains unproven. The off-NVIDIA share is real and rising, but training stays NVIDIA-anchored.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 8 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T8 Agent horizon: ~14.5h at 50% success (Opus 4.6), doubling ~7 months | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T8 — Горизонт автономии агента (METR): ~14,5 ч при 50% успеха, удвоение ~7 месяцев</span>
+        <span lang="en">T8 — Agent autonomy horizon (METR): ~14.5h at 50% success, doubling ~7 months</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">По METR Time Horizon 1.1 (29 янв 2026; набор расширен на 34% до 228 задач) Claude Opus 4.6 достиг 50%-горизонта ~14,5 ч (фев 2026). Долгосрочное удвоение ~7 месяцев за шесть лет, с недавним ускорением до ~4 месяцев. Оговорка по целостности (связано с T2): измерения чувствительны к reward hacking — пометка таких прогонов провалами срезала недавнюю оценку ~на 28%.</p>
+      <p lang="ru"><strong>Базовое состояние:</strong> лучший независимо измеренный горизонт — ~14,5 ч при 50% (Opus 4.6, METR), удвоение ~каждые 7 мес (недавно ~4). Неопределённость ±30–50%; 80%-горизонты заметно короче. Заявления лабораторий о 16ч+ (Mythos) не подтверждены сообществом.</p>
+      <p lang="en">Per METR's Time Horizon 1.1 (Jan 29, 2026; suite expanded 34% to 228 tasks), Claude Opus 4.6 reached a 50% horizon of ~14.5h (Feb 2026). Long-run doubling ~7 months over six years, with recent acceleration to ~4 months. Integrity caveat (linked to T2): measurements are reward-hacking-sensitive — marking such runs as failures cut a recent estimate ~28%.</p>
+      <p lang="en"><strong>Baseline:</strong> best independently-measured horizon is ~14.5h at 50% (Opus 4.6, METR), doubling ~every 7 months (recently ~4). Uncertainty ±30–50%; 80% horizons much shorter. Lab 16h+ (Mythos) claims are not community-corroborated.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 9 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T9 AI-in-science: verified AI-primary at hypothesis/design stage | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T9 — AI в науке: верифицированный AI-primary вклад на стадии гипотез/дизайна</span>
+        <span lang="en">T9 — AI-in-science: verified AI-primary at the hypothesis/design stage</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Google Co-Scientist (Nature, 19 мая 2026): мультиагентная система выдала проверяемые гипотезы, подтверждённые в мокрой лаборатории — репозиционирование лекарств и синергии для ОМЛ (in vitro), эпигенетические мишени для фиброза печени. За ~2 дня in silico воспроизвела неопубликованный механизм переноса генов (cf-PICI), на который ушло ~10 лет экспериментов (валидировано и опубликовано в Cell). SyntheMol-RL: AI спроектировал структурно новый антибиотик, эффективный на мышиной модели.</p>
+      <p lang="ru"><strong>Базовое состояние:</strong> AI — верифицированный <em>первичный</em> драйвер открытий на стадии гипотез с подтверждением в мокрой лаборатории. Оговорка: это AI-primary на стадии гипотез/дизайна с экспериментальной валидацией людьми, а не сквозное автономное открытие.</p>
+      <p lang="en">Google Co-Scientist (Nature, May 19, 2026): a multi-agent system produced testable hypotheses validated in wet-lab — drug repurposing and synergies for AML (in vitro), epigenetic targets for liver fibrosis. In ~2 days in silico it recapitulated an unpublished gene-transfer mechanism (cf-PICI) that took ~10 years experimentally (validated and published in Cell). SyntheMol-RL: AI designed a structurally novel antibiotic effective in a mouse model.</p>
+      <p lang="en"><strong>Baseline:</strong> AI is now a verified <em>primary</em> driver of hypothesis-stage discovery with wet-lab confirmation. Caveat: this is AI-primary at the hypothesis/design stage with human-run experimental validation, not end-to-end autonomous discovery.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 10 -->
+<article class="card" data-log="RUN trends-2026-06-11 | 2026-06-11 |  | T10 Data wall: real; synthetic works as augmentation, not replacement | trend |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">T10 — Стена данных: реальна; синтетика работает как аугментация, а не замена</span>
+        <span lang="en">T10 — Data wall: real; synthetic works as augmentation, not replacement</span>
+      </span>
+      <span class="tag tag-trend">trend</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">В обе стороны: коллапс реален, но условен — Shumailov et al. (Nature, 2024) показали коллапс при рекурсивном обучении на синтетике; даже 1% синтетики может вызвать коллапс у малых моделей. Но он предотвратим: Gerstgrasser et al. показали, что <em>накопление</em> синтетики рядом с реальными данными (а не замена) ограничивает ошибку. Серия Phi — публичное доказательство, что курируемое синтетическое предобучение работает. Поведение индустрии подтверждает стену: лаборатории платят за человеческие данные (Reddit–Google, News Corp–OpenAI); окно исчерпания качественного текста ~2026–2032 (Epoch).</p>
+      <p lang="ru"><strong>Базовое состояние:</strong> стена данных реальна, а синтетика поддерживает масштабирование <em>только</em> в режиме «накапливать, не заменять»: замена реальных данных доказуемо ведёт к коллапсу, накопление — ограничивает ошибку. Широкого коллапса frontier-моделей в проде нет — но именно различие режимов и есть вся суть.</p>
+      <p lang="en">Both directions: collapse is real but conditional — Shumailov et al. (Nature, 2024) showed collapse under recursive synthetic training; even 1% synthetic can induce collapse in small models. But it's avoidable: Gerstgrasser et al. show <em>accumulating</em> synthetic alongside real data (rather than replacing it) bounds error. The Phi series is the clearest public proof that curated synthetic pre-training works. Industry behavior confirms the wall: labs pay for human data (Reddit–Google, News Corp–OpenAI); high-quality-text exhaustion window ~2026–2032 (Epoch).</p>
+      <p lang="en"><strong>Baseline:</strong> the data wall is real, and synthetic data sustains scaling <em>only</em> under "accumulate, don't replace": replacing real data provably collapses, accumulating bounds error. No broad collapse in frontier production models — but the regime distinction is the whole story.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- EXTRA SECTIONS (non-graded) -->
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Ключевые выводы — вердикты по трендам</span>
+      <span lang="en">Key findings — per-trend verdicts</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>T1 — Замена SWE:</strong> реальна у конкретных фирм, сконцентрирована на junior; в масштабах экономики оспаривается.</li>
+        <li><strong>T2 — Паритет автоисследований:</strong> только узкие ML-задачи с коротким бюджетом; завышен reward hacking'ом.</li>
+        <li><strong>T3 — Кибер атака/защита:</strong> первое агрегированное свидетельство; промежуточная асимметрия в пользу атаки (один вендор).</li>
+        <li><strong>T4 — Отраслевая дизрупция:</strong> финтех-поддержка измеримо затронута, но упёрлась в потолок качества.</li>
+        <li><strong>T5 — Стоимость интеллекта:</strong> фиксированная способность дешевеет вдвое ~каждые 2 месяца.</li>
+        <li><strong>T6 — Открытость поля:</strong> дрейф к закрытости по трём осям, реальный и усиливающийся.</li>
+        <li><strong>T7 — Non-CUDA:</strong> production-инференс и пост-трейнинг; pre-training всё ещё на NVIDIA.</li>
+        <li><strong>T8 — Горизонт агента:</strong> ~14,5 ч при 50% успеха (Opus 4.6), удвоение ~7 мес.</li>
+        <li><strong>T9 — AI в науке:</strong> верифицированный AI-primary на стадии гипотез/дизайна.</li>
+        <li><strong>T10 — Стена данных:</strong> реальна; синтетика — аугментация, не замена.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>T1 — SWE replacement:</strong> real at named firms, junior-concentrated; economy-wide replacement contested.</li>
+        <li><strong>T2 — Autoresearch parity:</strong> short-budget narrow ML tasks only; inflated by reward hacking.</li>
+        <li><strong>T3 — Cyber offense/defense:</strong> first aggregate evidence; offense-favoring interim asymmetry (single-vendor).</li>
+        <li><strong>T4 — Industry disruption:</strong> fintech customer service measurably disrupted, but hit a quality ceiling.</li>
+        <li><strong>T5 — Cost-of-intelligence:</strong> fixed-capability cost halving ~every 2 months.</li>
+        <li><strong>T6 — Field openness:</strong> closure drift on three axes, real and strengthening.</li>
+        <li><strong>T7 — Non-CUDA:</strong> production inference + post-training; pre-training still NVIDIA.</li>
+        <li><strong>T8 — Agent horizon:</strong> ~14.5h at 50% success (Opus 4.6), doubling ~7 months.</li>
+        <li><strong>T9 — AI-in-science:</strong> verified AI-primary at the hypothesis/design stage.</li>
+        <li><strong>T10 — Data wall:</strong> real; synthetic is augmentation, not replacement.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Приоритеты наблюдения (следующий проход, TR2)</span>
+      <span lang="en">Watch priorities (next pass, TR2)</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>T3 (кибер) — высшая скорость, поставить 90-дневный триггер.</strong> Anthropic обещала полный публичный отчёт ~к июлю 2026; решающая метрика — доля пропатченного (сейчас 75/530). Порог: независимые агрегированные данные ИЛИ доля патчей выше ~50% сдвигают вердикт к балансу.</li>
+        <li><strong>T2 (автоисследования) — требовать инструментовку целостности.</strong> Любой новый SOTA на MLE-bench/RE-Bench считать подозрительным без указания доли reward hacking. Порог: результат на полном MLE-bench-75 выше ~60% из integrity-инструментованной оценки, либо PaperBench выше 41% человеческого baseline.</li>
+        <li><strong>T8 (горизонт агента) — отслеживать следующий дроп METR.</strong> Чистый опубликованный 80%-горизонт или 50%-горизонт выше ~24 ч после коррекции на reward hacking подтвердят структурность ускорения.</li>
+        <li><strong>T7 (non-CUDA):</strong> самый решающий неизвестный — pre-training с нуля на Ascend; документированный воспроизведённый прогон ≥100B на не-NVIDIA сильно сдвинет тренд.</li>
+        <li><strong>T6 (закрытость):</strong> последуют ли ICML/ICLR санкционным формулировкам NeurIPS и станет ли EO о пре-релизе обязательным.</li>
+        <li><strong>T10 (стена данных):</strong> первое признание <em>названной</em> лабораторией измеренной деградации в проде на тяжёлой синтетике.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>T3 (cyber) — highest-velocity, set a 90-day trigger.</strong> Anthropic committed to a fuller public report ~July 2026; the decisive metric is patched-share (currently 75/530). Threshold: independent aggregate data OR patched-share above ~50% moves the verdict toward balance.</li>
+        <li><strong>T2 (autoresearch) — demand integrity instrumentation.</strong> Treat any new MLE-bench/RE-Bench SOTA as suspect unless it reports a reward-hacking rate. Threshold: a full-75 MLE-bench result above ~60% from an integrity-instrumented eval, or PaperBench crossing the 41% human baseline.</li>
+        <li><strong>T8 (agent horizon) — track the next METR drop.</strong> A clean published 80% horizon, or a 50% horizon crossing ~24h after reward-hack correction, would confirm the acceleration is structural.</li>
+        <li><strong>T7 (non-CUDA):</strong> the single most decision-relevant unknown is from-scratch pre-training on Ascend; a documented, reproduced ≥100B run on non-NVIDIA flips this hard.</li>
+        <li><strong>T6 (closure):</strong> whether ICML/ICLR follow NeurIPS's sanctions language, and whether the pre-release-review EO turns mandatory.</li>
+        <li><strong>T10 (data wall):</strong> the first <em>named-lab</em> admission of measured degradation in a frontier production model trained on heavy synthetic data.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Оговорки / качество данных</span>
+      <span lang="en">Caveats / evidence quality</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>Риск одного вендора (T3):</strong> весь кибер-baseline опирается на самоотчёт Anthropic по Glasswing с нераскрытыми деталями; 90,6% true-positive проверены третьими сторонами, но на подвыборке (1 752 из 10 000+).</li>
+        <li><strong>Самоотчётная продуктивность (T1, T4):</strong> цифры Salesforce/Klarna/Block — корпоративные раскрытия со стимулом переоценить роль AI; Oxford Economics и Challenger существенно смягчают нарратив о замене.</li>
+        <li><strong>Хрупкость бенчмарков (T2):</strong> цифры MLE-bench несопоставимы между статьями из-за split/budget/seed; самые высокие (66–76%) — непроверенный вендорский маркетинг на Lite-22.</li>
+        <li><strong>Дисконт на capability-заявления:</strong> маркетинговые заявления лабораторий (Mythos 16ч, medal-rate MiniMax, «self-evolution») исключены из вердиктов и учтены лишь как дисконтированный контекст.</li>
+        <li><em>Базовый проход TR1: лог-блок (10 строк, по одной на тренд) синтезирован при рендере, поскольку исходный материал его не содержал.</em></li>
+      </ul>
+      <ul lang="en">
+        <li><strong>Single-vendor risk (T3):</strong> the entire cyber baseline rests on Anthropic's self-reported Glasswing data with details withheld; the 90.6% true-positive figure is third-party-validated but on a sub-sample (1,752 of 10,000+).</li>
+        <li><strong>Self-reported productivity (T1, T4):</strong> Salesforce/Klarna/Block figures are company disclosures with incentives to overstate AI's role; Oxford Economics and Challenger materially temper the replacement narrative.</li>
+        <li><strong>Benchmark fragility (T2):</strong> MLE-bench numbers are not comparable across papers due to split/budget/seed; the highest figures (66–76%) are unverified vendor marketing on Lite-22.</li>
+        <li><strong>Capability-claim discounting:</strong> lab marketing claims (Mythos 16h, MiniMax medal rates, "self-evolution") were excluded from verdicts and kept only as discounted context.</li>
+        <li><em>Baseline pass TR1: the log block (10 lines, one per trend) was synthesized at render time because the source material contained none.</em></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<button id="feedback-toggle" class="feedback-fab" type="button" aria-expanded="false" aria-controls="feedback-panel">
+  <span lang="ru">Обратная связь</span>
+  <span lang="en">Feedback</span>
+</button>
+
+<div id="feedback-panel" class="feedback-panel" hidden>
+  <div class="panel-inner">
+    <h2>
+      <span lang="ru">Лог обратной связи</span>
+      <span lang="en">Feedback log</span>
+    </h2>
+    <pre id="log-lines" class="log-lines"></pre>
+    <button id="copy-btn" class="copy-btn" type="button">
+      <span lang="ru">Скопировать</span>
+      <span lang="en">Copy</span>
+    </button>
+    <span id="copy-status" class="copy-status" role="status">
+      <span class="ok-msg">
+        <span lang="ru">Скопировано</span>
+        <span lang="en">Copied</span>
+      </span>
+      <span class="fail-msg">
+        <span lang="ru">Не сработало — используйте поле ниже</span>
+        <span lang="en">Copy failed — use the box below</span>
+      </span>
+    </span>
+    <textarea id="log-textarea" rows="6" readonly></textarea>
+    <p class="hint">
+      <span lang="ru">Долгое нажатие на поле — «Выделить всё».</span>
+      <span lang="en">Long-press the box to select all.</span>
+    </p>
+  </div>
+</div>
+
+<script src="assets/app.js?v=2"></script>
+</body>
+</html>
