@@ -19,7 +19,7 @@
 # temp file and discarded. Only a file count + saved names are printed.
 #
 # Exit codes: 0 = ok (incl. "no updates"); 1 = API/curl failure;
-#             3 = env file missing; 4 = BOT_TOKEN empty.
+#             3 = env file missing; 4 = BOT_TOKEN empty; 5 = jq not installed.
 
 set -u
 
@@ -27,6 +27,12 @@ envfile="${1:-/home/melodiz/bots/pulse_bot/env}"
 botdir=$(unset CDPATH; cd -- "$(dirname -- "$0")" && pwd)
 incoming="$botdir/incoming"
 offsetfile="$botdir/offset"
+
+# --- hard dependency: jq is required to parse getUpdates/getFile JSON ---
+if ! command -v jq >/dev/null 2>&1; then
+  echo "fetch.sh requires jq on the VPS; install with: sudo apt-get install -y jq" >&2
+  exit 5
+fi
 
 # --- load token (never printed) ----------------------------------------
 if [ ! -f "$envfile" ]; then
