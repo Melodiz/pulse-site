@@ -14,6 +14,39 @@ Live site: https://melodiz.github.io/pulse-site/
 3. Verify locally (Verification), commit + push (Deploy), notify (Telegram).
 4. End with the run report (Report format). Never skip the report.
 
+## Process new files (fetch, then render)
+
+**"process new files"** = pull the documents Ivan sent to the bot into `inbox/`,
+then run the standard render on everything unrendered. ("render" alone still works
+for hand-dropped files — it just skips the fetch.) Pull-on-demand: nothing on the
+VPS receives on a schedule, and Telegram retains updates only ~24h, so a document
+not pulled within a day is lost (acceptable).
+
+1. **Fetch** — `ssh yandex-vps '~/bots/pulse_bot/fetch.sh'`. Downloads any new
+   documents into `~/bots/pulse_bot/incoming/`, advances its `offset` file so the
+   same updates aren't pulled twice, and prints only a file count + saved names.
+2. **Pull down** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/incoming/*.md inbox/`
+   (no `--delete`; if `incoming/` is empty rsync reports "no match" — fine, stop here).
+3. **Render** — standard render run on every `inbox/` file with no matching
+   `docs/<date>-<source>*.html` (newly fetched + any pre-existing unrendered). Same
+   parse / verify / deploy / notify steps as a plain "render".
+4. **Clean up the VPS copy** — after a fetched file's page is rendered, pushed, and
+   live, delete just that one file from the box:
+   `ssh yandex-vps 'rm -f ~/bots/pulse_bot/incoming/<that-file>.md'`. The offset
+   already prevents re-fetch; this keeps `incoming/` tidy. Touch nothing else on the VPS.
+
+**SOURCE INFERENCE (locked).** Decide news vs trends from each file's CONTENT
+(Source A "News" headers vs Source B "Trends" headers), NEVER the filename — sent
+files are named arbitrarily (e.g. `artifact_9231412`). Ambiguous source → STOP and
+ask the owner; never guess.
+
+**ONE FILE = ONE PAGE (locked).** Every item in a file lands on that file's single
+page, even when kinds are mixed (a trend mentioned inside a news digest stays on the
+news page). Source is decided once per file, up front.
+
+Token hygiene: `fetch.sh` and its download URLs embed the bot token but never print
+it — same rule as `remind.sh` and the notify block.
+
 ## Input contract
 
 - Digests are MD files in `inbox/` with **free-form filenames** — identify each file's
@@ -146,13 +179,18 @@ fi
 
 ## Bot reminders (cron-only)
 
-`bot/` holds the render-reminder mechanism. **v1 runs no daemon** — reminders are
-cron + `curl` to Telegram `sendMessage`, nothing listening, no inbound ports.
+`bot/` holds the render-reminder mechanism **and** the file-ingest bridge. **v1 runs
+no daemon** — reminders are cron + `curl` to Telegram `sendMessage`, and ingest is
+pull-on-demand `curl` to `getUpdates`/`getFile`. Nothing listening, no inbound ports.
 
 - `bot/remind.sh` — POSIX sh; `remind.sh [env_file] <text>` sends one reminder and
   prints only the parsed result. Same token hygiene as the notify block: the URL
   embeds the token, so it's built in a variable and never echoed; curl stderr is
   discarded (it can leak the URL).
+- `bot/fetch.sh` — POSIX sh; `fetch.sh [env_file]` pulls documents Ivan sent the bot
+  into `~/bots/pulse_bot/incoming/`, persists an `offset` so files aren't re-fetched,
+  and prints only a file count + saved names. Used by "process new files" (above).
+  Same token hygiene (getUpdates/getFile/download URLs built in vars, never printed).
 - `bot/crontab.pulse` — the delimited crontab block (MSK server-local time):
   Mon = News, Tue/Fri = DL Pulse, first Mon/month = Trends.
 - `bot/env.example` — placeholders only. The **real env is hand-placed by Ivan** at
@@ -166,6 +204,7 @@ cron + `curl` to Telegram `sendMessage`, nothing listening, no inbound ports.
 
     docs/            Pages root: index.html, <date>-<source>.html pages, assets/
     inbox/           digest MD drop (input)
-    bot/             reminder mechanism: remind.sh, crontab.pulse, env.example, deploy.sh
+    bot/             remind.sh, fetch.sh, crontab.pulse, env.example, deploy.sh
     bot/env          VPS-only, gitignored, hand-placed (mode 600): BOT_TOKEN, CHAT_ID
     .env             local only, gitignored: BOT_TOKEN, CHAT_ID
+    (VPS) ~/bots/pulse_bot/{offset,incoming/}  fetch state: only new VPS state added
