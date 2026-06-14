@@ -1,0 +1,5 @@
+# pulse_bot v2 daemon dependencies — install into the shared conda env `bots`:
+#   ~/miniconda3/envs/bots/bin/pip install -r requirements.txt
+# The [job-queue] extra pulls in APScheduler (used for the MSK reminder schedule).
+# Pinned to the version verified at build time (PTB v22.8, APScheduler via the extra).
+python-telegram-bot[job-queue]==22.8

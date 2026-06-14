@@ -14,26 +14,60 @@ Live site: https://melodiz.github.io/pulse-site/
 3. Verify locally (Verification), commit + push (Deploy), notify (Telegram).
 4. End with the run report (Report format). Never skip the report.
 
-## Process new files (fetch, then render)
+## Process new files (pull from the daemon, then render)
 
 **"process new files"** = pull the documents Ivan sent to the bot into `inbox/`,
 then run the standard render on everything unrendered. ("render" alone still works
-for hand-dropped files — it just skips the fetch.) Pull-on-demand: nothing on the
-VPS receives on a schedule, and Telegram retains updates only ~24h, so a document
-not pulled within a day is lost (acceptable).
+for hand-dropped files — it just skips the pull.) In **v2** the long-polling daemon
+owns the Telegram update stream and saves owner-sent `.md` documents straight to
+`~/bots/pulse_bot/data/incoming/`. There is **no `fetch.sh` and no `getUpdates` poll
+on the CC side anymore** — a second poller would 409 the daemon.
 
-1. **Fetch** — `ssh yandex-vps '~/bots/pulse_bot/fetch.sh'`. Downloads any new
-   documents into `~/bots/pulse_bot/incoming/`, advances its `offset` file so the
-   same updates aren't pulled twice, and prints only a file count + saved names.
-2. **Pull down** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/incoming/*.md inbox/`
+1. **Pull down** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/data/incoming/*.md inbox/`
    (no `--delete`; if `incoming/` is empty rsync reports "no match" — fine, stop here).
-3. **Render** — standard render run on every `inbox/` file with no matching
-   `docs/<date>-<source>*.html` (newly fetched + any pre-existing unrendered). Same
+2. **Render** — standard render run on every `inbox/` file with no matching
+   `docs/<date>-<source>*.html` (newly pulled + any pre-existing unrendered). Same
    parse / verify / deploy / notify steps as a plain "render".
-4. **Clean up the VPS copy** — after a fetched file's page is rendered, pushed, and
-   live, delete just that one file from the box:
-   `ssh yandex-vps 'rm -f ~/bots/pulse_bot/incoming/<that-file>.md'`. The offset
-   already prevents re-fetch; this keeps `incoming/` tidy. Touch nothing else on the VPS.
+3. **Clean up the VPS copy** — after a file's page is rendered, pushed, and live,
+   delete just that one file from the box (quote the name and use `rm -f --` in case a
+   filename starts with `-`):
+   `ssh yandex-vps "rm -f -- '~/bots/pulse_bot/data/incoming/<that-file>.md'"`. Touch
+   nothing else on the VPS.
+
+(The daemon does not re-deliver a document, so there is no offset to manage; the
+~24h Telegram-retention caveat no longer applies — once the daemon has saved a file
+to `data/incoming/` it persists until CC pulls + clears it.)
+
+## Broadcast a digest to subscribers
+
+**"broadcast"** (usually folded into the notify step of a render) = tell the daemon
+to push a published digest URL to every `/subscribe`r. CC writes a one-shot trigger
+file over the existing ssh path; the daemon picks it up within ~15s, broadcasts, and
+clears it. No inbound port is opened.
+
+    ssh yandex-vps 'cat > ~/bots/pulse_bot/data/broadcast_queue.json.tmp && mv -f ~/bots/pulse_bot/data/broadcast_queue.json.tmp ~/bots/pulse_bot/data/broadcast_queue.json' <<'JSON'
+    {"source":"News","date":"2026-06-11","title":"News digest","url":"https://melodiz.github.io/pulse-site/2026-06-11-news.html"}
+    JSON
+
+**Write the trigger atomically** (temp then `mv` — same filesystem, atomic rename) so
+the daemon's 15s poll never claims a half-written file and silently drops the broadcast.
+The daemon broadcasts `{source} {date}` + `{title}` + `{url}` and prunes anyone who
+has blocked the bot. (Owner DM notify via curl `sendMessage` is still fine in parallel
+— only `getUpdates` is single-poller.)
+
+## Process feedback
+
+**"process feedback"** = turn the owner's in-Telegram replies into paste-ready log lines.
+
+1. **Pull** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/data/feedback_inbox.jsonl ./` (a
+   personal-KB file — keep it OUT of any tracked path; it is gitignored).
+2. **Clean** — each line is `{ts, text}`; turn the owner's free-form notes into
+   `pulse_log.md` feedback lines (match to the items they refer to: `👍`/`👎` + ≤10 words).
+3. **Courier** — write the cleaned lines to a `.md` and send it to the OWNER via the
+   bot's `sendDocument` (curl, token in a variable, never printed — same hygiene as
+   notify). `chat_id=$CHAT_ID` from `.env`.
+4. **Clear** — once couriered, truncate the remote inbox so lines aren't re-processed:
+   `ssh yandex-vps ': > ~/bots/pulse_bot/data/feedback_inbox.jsonl'`. Touch nothing else.
 
 **SOURCE INFERENCE (locked).** Decide news vs trends from each file's CONTENT
 (Source A "News" headers vs Source B "Trends" headers), NEVER the filename — sent
@@ -44,8 +78,9 @@ ask the owner; never guess.
 page, even when kinds are mixed (a trend mentioned inside a news digest stays on the
 news page). Source is decided once per file, up front.
 
-Token hygiene: `fetch.sh` and its download URLs embed the bot token but never print
-it — same rule as `remind.sh` and the notify block.
+Token hygiene: the daemon never logs the token (httpx is pinned to WARNING), and any
+CC-side curl (`sendMessage`/`sendDocument`) builds the token-bearing URL in a variable
+and never prints it — same rule as the notify block.
 
 ## Input contract
 
@@ -177,34 +212,42 @@ fi
 - Notify: ok:true + message_id / ok:false + description / skipped (no .env) —
   never the token, the URL, or the curl command
 
-## Bot reminders (cron-only)
+## Bot daemon (v2 — interactive, long polling)
 
-`bot/` holds the render-reminder mechanism **and** the file-ingest bridge. **v1 runs
-no daemon** — reminders are cron + `curl` to Telegram `sendMessage`, and ingest is
-pull-on-demand `curl` to `getUpdates`/`getFile`. Nothing listening, no inbound ports.
+`bot/` holds the **pulse_bot daemon**: a python-telegram-bot long-polling service.
+It owns the Telegram update stream (only one poller per token — see 409 below).
+**No inbound ports** (port 22 only); long polling is outbound. The **v1 cron + curl
+setup is RETIRED** — `remind.sh`, `fetch.sh`, and `crontab.pulse` are dead code kept
+only for history; the daemon now does reminders, ingest, broadcast, and feedback.
 
-- `bot/remind.sh` — POSIX sh; `remind.sh [env_file] <text>` sends one reminder and
-  prints only the parsed result. Same token hygiene as the notify block: the URL
-  embeds the token, so it's built in a variable and never echoed; curl stderr is
-  discarded (it can leak the URL).
-- `bot/fetch.sh` — POSIX sh; `fetch.sh [env_file]` pulls documents Ivan sent the bot
-  into `~/bots/pulse_bot/incoming/`, persists an `offset` so files aren't re-fetched,
-  and prints only a file count + saved names. Used by "process new files" (above).
-  Same token hygiene (getUpdates/getFile/download URLs built in vars, never printed).
-- `bot/crontab.pulse` — the delimited crontab block (MSK server-local time):
-  Mon = News, Tue/Fri = DL Pulse, first Mon/month = Trends.
+- `bot/pulse_bot.py` — the daemon. `/start`,`/help`,`/subscribe`,`/unsubscribe`;
+  reminder scheduler (MSK, JobQueue: Mon News, Tue/Fri DL Pulse, first-Mon Trends);
+  broadcast to subscribers (prunes 403-blockers); watches `data/broadcast_queue.json`;
+  owner replies → `data/feedback_inbox.jsonl`; owner documents → `data/incoming/`.
+  Token never logged (httpx pinned to WARNING). Reads BOT_TOKEN + CHAT_ID (owner) from env.
+- `bot/pulse_bot.service` — hardened systemd unit (User=melodiz, EnvironmentFile,
+  ProtectHome=read-only + ProtectSystem=strict + ReadWritePaths=…/data, NoNewPrivileges,
+  PrivateTmp, Restart=always, After=network-online.target wg-quick@wg0.service).
+- `bot/requirements.txt` — `python-telegram-bot[job-queue]==22.8`, installed into the
+  shared conda env `bots` (py3.12) at `~/miniconda3/envs/bots`.
+- `bot/deploy.sh` — v2 deploy: rsync `*.py` + unit + requirements into `~/bots/pulse_bot/`
+  (never env/data, no `--delete`), pip-install into the shared env, install the unit +
+  daemon-reload; `--start` also enables + (stop→wait→start) + health-checks (no 409, no token).
 - `bot/env.example` — placeholders only. The **real env is hand-placed by Ivan** at
   `~/bots/pulse_bot/env` on the VPS (mode 600) and at repo-root `.env` locally;
   neither is committed (both gitignored). Nothing under `bot/` ever carries a real token.
-- Deploy = `./bot/deploy.sh` (ships `remind.sh` + `crontab.pulse` to `yandex-vps`,
-  scoped to `~/bots/pulse_bot/`, installs the crontab block idempotently). Gated on
-  Ivan placing the token first.
+- **409 rule:** only one process may poll a token. Before the daemon starts, the v1
+  cron sends must be gone and no other poller running, or `getUpdates` returns 409.
+- *Retired (kept for history):* `bot/remind.sh`, `bot/fetch.sh`, `bot/crontab.pulse`.
 
 ## Repo map
 
     docs/            Pages root: index.html, <date>-<source>.html pages, assets/
     inbox/           digest MD drop (input)
-    bot/             remind.sh, fetch.sh, crontab.pulse, env.example, deploy.sh
+    bot/             pulse_bot.py, pulse_bot.service, requirements.txt, deploy.sh,
+                     env.example  (+ retired v1: remind.sh, fetch.sh, crontab.pulse)
     bot/env          VPS-only, gitignored, hand-placed (mode 600): BOT_TOKEN, CHAT_ID
     .env             local only, gitignored: BOT_TOKEN, CHAT_ID
-    (VPS) ~/bots/pulse_bot/{offset,incoming/}  fetch state: only new VPS state added
+    pulse_log.md     personal KB — gitignored, NEVER committed (repo is public)
+    (VPS) ~/bots/pulse_bot/data/{subscribers.json, feedback_inbox.jsonl,
+                     broadcast_queue.json, incoming/}  daemon state (gitignored mirror)
