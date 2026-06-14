@@ -21,7 +21,8 @@ set -eu
 
 HOST="yandex-vps"
 REMOTE_DIR="bots/pulse_bot"                       # relative to remote $HOME
-UNIT="pulse-bot.service"
+SRC_UNIT="pulse_bot.service"                       # the file name in the repo / bot dir
+UNIT="pulse-bot.service"                           # the installed systemd service name
 CONDA_PY="\$HOME/miniconda3/envs/bots/bin/python"
 CONDA_PIP="\$HOME/miniconda3/envs/bots/bin/pip"
 SCRIPT_DIR=$(unset CDPATH; cd -- "$(dirname -- "$0")" && pwd)
@@ -36,7 +37,8 @@ echo "deploy: target ${HOST}:~/${REMOTE_DIR}/ (env + data/ never shipped)"
 ssh "$HOST" "mkdir -p \"\$HOME/${REMOTE_DIR}/data/incoming\" \"\$HOME/${REMOTE_DIR}/data/.cache\""
 
 # --- 2. rsync code + unit + requirements (NOT env, NOT data/, NO --delete) -----
-rsync -av --chmod=F644 \
+# -a preserves source perms (no --chmod: the macOS/BSD rsync rejects it).
+rsync -av \
   "${SCRIPT_DIR}/pulse_bot.py" \
   "${SCRIPT_DIR}/requirements.txt" \
   "${SCRIPT_DIR}/pulse_bot.service" \
@@ -54,7 +56,7 @@ if ! ssh "$HOST" "sudo -n true" 2>/dev/null; then
   exit 3
 fi
 # shellcheck disable=SC2029
-ssh "$HOST" "sudo cp \"\$HOME/${REMOTE_DIR}/${UNIT}\" \"/etc/systemd/system/${UNIT}\" && sudo systemctl daemon-reload"
+ssh "$HOST" "sudo cp \"\$HOME/${REMOTE_DIR}/${SRC_UNIT}\" \"/etc/systemd/system/${UNIT}\" && sudo systemctl daemon-reload"
 echo "deploy: unit installed + daemon-reloaded."
 
 if [ "$START" -eq 0 ]; then
