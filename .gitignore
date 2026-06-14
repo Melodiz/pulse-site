@@ -7,3 +7,7 @@ bot/data/
 pulse_log.md
 ARCHIVE_pulse_log_*.md
 *.jsonl
+
+# Python build artifacts
+__pycache__/
+*.pyc
