@@ -2,3 +2,8 @@
 bot/env
 bot/data/
 .DS_Store
+
+# Personal KB / feedback ledgers — repo is PUBLIC, these must never be tracked.
+pulse_log.md
+ARCHIVE_pulse_log_*.md
+*.jsonl
