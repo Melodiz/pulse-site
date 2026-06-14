@@ -323,23 +323,32 @@ async def on_owner_document(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 
 
 # ------------------------------------------------------------------------- jobs (MSK)
+async def notify_owner(context: ContextTypes.DEFAULT_TYPE, text: str) -> None:
+    """Single send to the OWNER only — run reminders go here, NOT to subscribers."""
+    try:
+        await context.bot.send_message(context.bot_data["owner_id"], text)
+        log.info("owner reminder sent")
+    except TelegramError:
+        log.exception("failed to send owner reminder")
+
+
 async def job_news(context: ContextTypes.DEFAULT_TYPE) -> None:
     if dt.datetime.now(MSK).date().weekday() != 0:  # stdlib: Monday == 0
         return
-    await broadcast(context, REMINDER_NEWS)
+    await notify_owner(context, REMINDER_NEWS)
 
 
 async def job_dlpulse(context: ContextTypes.DEFAULT_TYPE) -> None:
     if dt.datetime.now(MSK).date().weekday() not in (1, 4):  # stdlib: Tue == 1, Fri == 4
         return
-    await broadcast(context, REMINDER_DLPULSE)
+    await notify_owner(context, REMINDER_DLPULSE)
 
 
 async def job_trends(context: ContextTypes.DEFAULT_TYPE) -> None:
     today = dt.datetime.now(MSK).date()
     if today.weekday() != 0 or today.day > 7:  # first Monday of the month
         return
-    await broadcast(context, REMINDER_TRENDS)
+    await notify_owner(context, REMINDER_TRENDS)
 
 
 async def job_poll_broadcast_queue(context: ContextTypes.DEFAULT_TYPE) -> None:
