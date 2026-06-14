@@ -1,0 +1,56 @@
+[Unit]
+Description=Pulse Telegram bot (interactive AI-digest feed daemon)
+Documentation=https://github.com/Melodiz/pulse-site
+# Order after full network connectivity. Wants= is weak: if the target fails we
+# still start. (network-online.target only blocks if a *-wait-online.service is
+# enabled — see deploy/health notes.)
+Wants=network-online.target
+After=network-online.target
+# Pure ORDERING only (no Requires/BindsTo): if wg0 comes up in the same boot
+# transaction we start after it; we never pull it in, start it, or stop it.
+After=wg-quick@wg0.service
+
+[Service]
+Type=simple
+User=melodiz
+Group=melodiz
+# The bot dir always exists (the .py lives here), so chdir never fails. The daemon
+# writes only under data/ via absolute paths, not the CWD.
+WorkingDirectory=/home/melodiz/bots/pulse_bot
+
+# Read by the (root) service manager BEFORE the privilege drop, so a 0600
+# melodiz-owned file is fine. Plain KEY=VALUE lines (BOT_TOKEN, CHAT_ID), no "export".
+EnvironmentFile=/home/melodiz/bots/pulse_bot/env
+# Keep any incidental home/cache writes inside the one writable subtree (data/),
+# so ProtectHome=read-only never causes an EROFS at runtime.
+Environment=HOME=/home/melodiz/bots/pulse_bot/data
+Environment=XDG_CACHE_HOME=/home/melodiz/bots/pulse_bot/data/.cache
+Environment=PYTHONUNBUFFERED=1
+
+# Ensure the writable subdirs exist (data/ itself must already exist for ReadWritePaths;
+# deploy.sh creates it). Runs inside the sandbox where data/ is read-write.
+ExecStartPre=/usr/bin/mkdir -p /home/melodiz/bots/pulse_bot/data/incoming /home/melodiz/bots/pulse_bot/data/.cache
+ExecStart=/home/melodiz/miniconda3/envs/bots/bin/python -u /home/melodiz/bots/pulse_bot/pulse_bot.py
+
+Restart=always
+RestartSec=5
+
+# --- hardening (playbook) ---
+NoNewPrivileges=yes
+PrivateTmp=yes
+# ProtectHome=read-only (NOT =yes): the conda interpreter under /home must stay
+# executable; only writes to /home are refused.
+ProtectHome=read-only
+ProtectSystem=strict
+# Carve the state dir back to read-write under both protections above.
+ReadWritePaths=/home/melodiz/bots/pulse_bot/data
+# Extra hardening that does not affect a conda Python long-polling daemon.
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RemoveIPC=yes
+
+[Install]
+WantedBy=multi-user.target
