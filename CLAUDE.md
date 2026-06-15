@@ -128,9 +128,15 @@ and never prints it — same rule as the notify block.
 - Tolerate small format drift (heading wording, section order, extra prose).
   On real ambiguity or parse failure — a body section you can't match to a log line,
   a log line you can't read — **STOP and ask the owner. Never guess silently.**
-- **Missing log block**: stop and ask. If synthesis is approved: one line per body
-  item, in body order; append the block to the inbox MD marked as
-  `<!-- log block synthesized at render time -->` so source and page stay in sync.
+- **Missing log block**: **synthesis is now STANDING for the research-style inputs**
+  (the `compass_artifact_*` / pass-format MDs that ship a Details + Recommendations
+  structure but no formatted log block) — synthesize automatically, no need to ask.
+  One line per **log-grade** body item, in body order, following the digest's own
+  triage (its "Recommendations / log one item" directives decide what is a graded card
+  vs a non-graded watch-list/pointer/trend section). Append the synthesized block to
+  the inbox MD marked `<!-- log block synthesized at render time -->` so source and
+  page stay in sync, and note the synthesis in the run report. Only STOP and ask if the
+  loggable enumeration is genuinely ambiguous (the digest gives no clear triage).
 - **Type vocabulary is open-ended** (seen so far: release, controversy, paper, result,
   deal, policy, plan, trend). A new type needs a `tag-<type>` class: add one color line
   to the kicker palette in `docs/assets/style.css`, pick a sensible existing color

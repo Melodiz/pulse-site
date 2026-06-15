@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AI-Tech Field Pulse — News — 2026-06-15</title>
+  <link rel="stylesheet" href="assets/style.css?v=4">
+</head>
+<body class="lang-en">
+
+<header class="site-header">
+  <div class="header-row">
+    <p class="source">AI-Tech Field Pulse — News</p>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      <button type="button" data-lang="en" class="active" aria-pressed="true">EN</button>
+    </div>
+  </div>
+  <h1>
+    <span lang="ru">Дайджест новостей</span>
+    <span lang="en">News digest</span>
+  </h1>
+  <p class="digest-date">
+    <time datetime="2026-06-15">2026-06-15</time>
+    <span class="digest-range">
+      <span lang="ru">(проход N3 — окно 12–15 июня 2026)</span>
+      <span lang="en">(pass N3 — window June 12–15, 2026)</span>
+    </span>
+  </p>
+</header>
+
+<main>
+
+<!-- TL;DR -->
+<section class="intro-block">
+  <details open>
+    <summary>
+      <span lang="ru">Коротко</span>
+      <span lang="en">TL;DR</span>
+    </summary>
+    <div class="intro-body">
+      <ul lang="ru">
+        <li><strong>Тонкое окно (выходные, 3–4 дня).</strong> Единственный достойный лога пункт — открытая модель для кода <strong>Kimi K2.7-Code</strong> (Moonshot, 12 июня); GLM-5.2 и Gemini-SQL2 — лишь указатели в watch-list. Ни один из трёх не пересекает frontier-порог по независимым данным: все три опубликовали только вендорские цифры — это benchmark-<em>заявление</em>, а не benchmark-<em>результат</em>.</li>
+        <li><strong>Новых моделей Anthropic в окне нет</strong> (Fable 5 / Mythos 5 / Opus 4.8 — пункты прошлых проходов). Нет сдвига по compute, по frontier-на-не-NVIDIA, по корпоративной замене SWE, по науке уровня AlphaFold и по SOTA модальностей.</li>
+        <li><strong>Главный мета-сигнал — тайминг:</strong> GLM-5.2 вышла 13 июня, в тот же день, когда оставалась в силе экспортная директива США против моделей класса Mythos от Anthropic — намеренный контраст «открытое vs закрытое».</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>A thin window (a 3–4 day weekend).</strong> The only log-grade item is the open-weight coding model <strong>Kimi K2.7-Code</strong> (Moonshot, June 12); GLM-5.2 and Gemini-SQL2 are watch-list pointers only. None of the three clears the frontier threshold on independent evidence — all shipped vendor-only numbers, so treat them as benchmark-<em>claim</em>, not benchmark-<em>result</em>.</li>
+        <li><strong>No new Anthropic model in-window</strong> (Fable 5 / Mythos 5 / Opus 4.8 are prior-run items). No compute step-change, no frontier-on-non-NVIDIA, no company-level SWE-replacement datapoint, no AlphaFold-class science, no modality SOTA shift.</li>
+        <li><strong>The key meta-signal is timing:</strong> GLM-5.2 launched June 13, the same day the US export-control directive against Anthropic's Mythos-class models stayed in force — a deliberate open-vs-closed contrast.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- CARD 1 -->
+<article class="card" data-log="RUN news-2026-06-15 | 2026-06-15 | huggingface.co/moonshotai/Kimi-K2.7-Code | Kimi K2.7-Code: open-weight coding model, vendor-benchmark only, trails GPT-5.5/Opus 4.8, high benchmark-divergence risk | release |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Kimi K2.7-Code (Moonshot) — открытая модель для кода, только вендорские бенчмарки</span>
+        <span lang="en">Kimi K2.7-Code (Moonshot) — open-weight coding model, vendor-benchmark only</span>
+      </span>
+      <span class="tag tag-release">release</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Moonshot выпустил (12 июня) открытую, специализированную на коде преемницу K2.6. Архитектура: MoE на 1T параметров, 32B активных, 384 эксперта (выбирается 8+1), контекст 256K, vision-энкодер MoonViT на 400M, обязательный неотключаемый режим «thinking», зафиксированные параметры сэмплинга. Веса доступны на Hugging Face (<code>moonshotai/Kimi-K2.7-Code</code>) под Modified MIT. Цена API $0,95 / $4,00 за 1M входных/выходных токенов.</p>
+      <p lang="ru"><strong>Качество заявлений:</strong> все заголовочные цифры — собственные проприетарные бенчмарки Moonshot (Kimi Code Bench v2, Program Bench, MLS Bench Lite, MCP Atlas, MCPMark Verified). Флагманские заявления: +21,8% к K2.6 на Kimi Code Bench v2 и ~30% меньше reasoning-токенов. На 15 июня независимых сторонних цифр на стандартных публичных наборах (SWE-bench Verified/Pro, LiveCodeBench, Terminal-Bench, GPQA Diamond) нет, как и оценки Artificial Analysis Index (для сравнения: предшественница K2.6 — 54).</p>
+      <p lang="ru"><strong>Вердикт триажа — порог не пересекает.</strong> По собственным цифрам Moonshot K2.7-Code уступает GPT-5.5 и Claude Opus 4.8 на большинстве код-бенчмарков (Kimi Code Bench v2 62,0 против 69,0 у GPT-5.5 / 67,4 у Opus 4.8; MLS Bench Lite 35,1 против 81,3 у Opus 4.8). Реальное преимущество — цена и токен-эффективность, а не способности. <strong>Флаг целостности eval (причина лога):</strong> разработчик Sugumaran Balasubramaniyan (платформа Hermes Agent) публично оспорил цифры — «при всём уважении, любая модель „улучшается“ на двузначные проценты на собственном тест-сете», — напомнив, что K2.6 набрала лишь 24% на независимом DeepSWE, лидируя на своих наборах, а K2.7-Code на DeepSWE не подавали. Хрестоматийная «заголовочная метрика без истории независимой проверки» — считать прирост направленным, не результатом.</p>
+      <p lang="en">Moonshot shipped (June 12) an open-weight, coding-specialized successor to K2.6. Architecture: 1T-param MoE, 32B active per token, 384 experts (8+1 selected), 256K context, a 400M MoonViT vision encoder, mandatory always-on "thinking" mode (non-disableable), locked sampling parameters. Weights are live on Hugging Face (<code>moonshotai/Kimi-K2.7-Code</code>) under a Modified MIT license. API pricing $0.95 / $4.00 per 1M input/output tokens.</p>
+      <p lang="en"><strong>Claim quality:</strong> all headline numbers are Moonshot's own proprietary benchmarks (Kimi Code Bench v2, Program Bench, MLS Bench Lite, MCP Atlas, MCPMark Verified). Flagship claims: +21.8% over K2.6 on Kimi Code Bench v2 and ~30% fewer reasoning tokens. As of June 15 there are NO independent third-party numbers on standard public suites (SWE-bench Verified/Pro, LiveCodeBench, Terminal-Bench, GPQA Diamond), and no Artificial Analysis Index score yet (for reference, predecessor K2.6 scored 54).</p>
+      <p lang="en"><strong>Triage verdict — does NOT clear the frontier threshold.</strong> By Moonshot's own numbers, K2.7-Code trails GPT-5.5 and Claude Opus 4.8 on most coding benchmarks (Kimi Code Bench v2 62.0 vs GPT-5.5 69.0 / Opus 4.8 67.4; MLS Bench Lite 35.1 vs Opus 4.8 81.3). The real selling point is price and token efficiency, not capability. <strong>Eval-integrity flag (why it's logged):</strong> developer Sugumaran Balasubramaniyan (Hermes Agent platform) publicly challenged the numbers — "respectfully, every model 'improves' double digits on its own test suite" — noting K2.6 scored only 24% on the independent DeepSWE benchmark while leading on Moonshot's own suites, and K2.7-Code has not been submitted to DeepSWE. A textbook "headline metric without an independent-eval story" — treat the gains as directional, not a result.</p>
+      <p class="card-link"><a href="https://huggingface.co/moonshotai/Kimi-K2.7-Code">huggingface.co/moonshotai/Kimi-K2.7-Code</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- EXTRA SECTIONS (non-graded) -->
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Watch-list / указатели (пока не логируем)</span>
+      <span lang="en">Watch-list / pointers (not yet logged)</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>GLM-5.2 (Z.ai / Zhipu, 13 июня):</strong> новый флагман для кода (семейство GLM-5, MoE 744B / 40B активных, контекст 1M, встраивается в Claude Code через Anthropic-совместимый endpoint; MIT-веса обещаны «на следующей неделе»). Но на запуске — НОЛЬ бенчмарков, и на 15 июня нет ни весов на Hugging Face, ни публичного API/чатбота → структурно непроверяемо. Указатель, не лог. Значимость — геополитическая рамка: вышла в тот же день, когда оставалась в силе экспортная приостановка Fable 5 / Mythos 5 в США. Пересмотреть, когда появятся веса/API и независимые цифры (~неделя 16 июня).</li>
+        <li><strong>Gemini-SQL2 (Google Research, 12 июня):</strong> возможность text-to-SQL на базе Gemini 3.1 Pro — 80,04% execution accuracy на single-model BIRD (прежний рекорд Google 76,13%; конкуренты: AWS Q-SQL ~76,5%, GPT-5.5-xhigh ~72,8%, Opus 4.6 ~70,9%). Закрыто, без API/карты модели/отчёта → невоспроизводимо; разрыв 12,92 п.п. до человека (92,96%). Это возможность (post-training/scaffolding на существующем флагмане), а не новая базовая модель. Только указатель.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>GLM-5.2 (Z.ai / Zhipu, June 13):</strong> new flagship coding model (GLM-5 family, 744B MoE / 40B active, 1M context, drops into Claude Code via an Anthropic-compatible endpoint; MIT weights promised "next week"). But it shipped with ZERO benchmarks, and as of June 15 there are no weights on Hugging Face and no public API/chatbot → structurally untestable. Pointer, not a log entry. The significant fact is geopolitical framing: it launched the same day the US export-control suspension of Fable 5 / Mythos 5 remained in force. Revisit when weights/API and independent numbers land (~week of June 16).</li>
+        <li><strong>Gemini-SQL2 (Google Research, June 12):</strong> a text-to-SQL capability on Gemini 3.1 Pro — 80.04% execution accuracy on the single-model BIRD leaderboard (Google's prior record 76.13%; competitors: AWS Q-SQL ~76.5%, GPT-5.5-xhigh ~72.8%, Opus 4.6 ~70.9%). Closed, with no API/model card/report → cannot be reproduced; a 12.92-pt gap to human performance (92.96%). It's a capability (post-training/scaffolding on an existing flagship), not a new foundation model. Pointer only.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Указатели движения трендов (для следующего прохода трендов)</span>
+      <span lang="en">Trend-movement pointers (next trends pass)</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>Открытость/закрытость поля (T6):</strong> самый резкий сигнал окна — закрытая frontier-модель США (класса Mythos) под экспортной приостановкой, а два китайских лаба в ту же неделю выпускают открытые (Kimi, modified-MIT) или обещанно-открытые (GLM-5.2, MIT) код-модели. Давление в сторону китайских open-weights, заполняющих разрыв от закрытия в США.</li>
+        <li><strong>Кривая стоимости интеллекта (T5):</strong> продолжение спада ~10×/год за эквивалентную способность («LLMflation» по Appenzeller); Epoch AI измеряет медиану ~50×/год на части задач. K2.7-Code и MiniMax M3 (1 июня) продолжают подрезать закрытый frontier по цене. Событий уровня OOM в окне нет.</li>
+        <li><strong>Горизонт автономии агентов (T8):</strong> вендорские анекдоты (рои из 300 субагентов у Kimi; ~24-часовые прогоны MiniMax M3 с ~2000 tool-call) продолжают растягивать заявленные горизонты, но это демо без независимых reward-hacking-устойчивых eval — помечено как подозрительное.</li>
+        <li><strong>Жизнеспособность non-NVIDIA / non-CUDA (T7):</strong> событий в окне нет. Заявление о post-training DeepSeek-V4-Pro на Ascend (5–6 июня) — прошлый проход; Huawei Ascend 950DT (training-класс) якобы сдвинут на август — указатель, пока не новость.</li>
+        <li><strong>Темп замены SWE (T1):</strong> Challenger насчитал 52 050 сокращений в tech YTD к марту (+40% г/г); TrueUp — >142 000 tech-рабочих мест за первые 5 месяцев 2026 (~+33% г/г, крупнейшее — Oracle ~30 000). Но AI-атрибуция куда ниже раздутых «~48%»: Challenger относит к AI 15 341 за март (25% месяца) и 27 645 YTD (~13% всех сокращений 2026). Корпоративных датапоинтов нужного качества в окне нет; «AI-washing» — конфаундер.</li>
+        <li><strong>AI в науке / стена данных (T9):</strong> результата уровня AlphaFold в окне нет.</li>
+        <li><strong>Отраслевая дизрупция (T4):</strong> Gemini-SQL2 подталкивает фронтир корпоративного доступа к данным, но закрыт и не проверен; события на твёрдых данных нет.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>Field openness/closure (T6):</strong> the sharpest signal of the window — a US closed frontier model (Mythos-class) sits export-control-suspended while two Chinese labs ship open-weight (Kimi, modified-MIT) or open-weight-promised (GLM-5.2, MIT) coding models the same week. Directional pressure toward Chinese open weights filling the gap left by US closure.</li>
+        <li><strong>Cost-of-intelligence curve (T5):</strong> continues the ~10×/yr decline for equivalent capability ("LLMflation," per Appenzeller); Epoch AI measures a steeper median ~50×/yr on some tasks. K2.7-Code and MiniMax M3 (June 1) keep undercutting the closed frontier on price. No order-of-magnitude in-window event.</li>
+        <li><strong>Agent autonomy horizon (T8):</strong> vendor anecdotes (Kimi 300-sub-agent swarms; MiniMax M3 ~24-hour runs with ~2,000 tool calls) keep extending claimed horizons, but these are vendor demos lacking independent reward-hacking-resistant evals — flagged as suspect.</li>
+        <li><strong>Non-NVIDIA / non-CUDA viability (T7):</strong> no in-window event. The DeepSeek-V4-Pro-on-Ascend post-training claim (June 5–6) is prior-run; Huawei's Ascend 950DT (training-class) is reportedly pulled forward to August — a pointer to watch, not yet news.</li>
+        <li><strong>SWE replacement rate (T1):</strong> Challenger counted 52,050 tech-sector cuts YTD through March (+40% YoY); TrueUp tracked &gt;142,000 US tech jobs cut in the first five months of 2026 (~33% YoY, Oracle's ~30,000-role cut the largest). But AI-attribution is far below the inflated "~48%" figures: Challenger attributes AI for 15,341 of March's cuts (25% of the month) and 27,645 YTD (~13% of 2026 cuts). No in-window company-level datapoint of the required quality; "AI-washing" remains a confound.</li>
+        <li><strong>AI-in-science / data wall (T9):</strong> no AlphaFold-class result in-window.</li>
+        <li><strong>Industry disruption (T4):</strong> Gemini-SQL2 nudges the enterprise-data-access frontier but is closed and unaudited; no hard-data disruption event.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Оговорки</span>
+      <span lang="en">Caveats</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li>Намеренно тонкий набор: окно 3–4 дня на выходных дало мало сигнала — это ожидаемо и нормально. Качество важнее объёма; маргинальные/хайповые пункты исключены.</li>
+        <li>Все три релиза окна — вендорские или непроверяемые цифры; ни у одного на 15 июня нет независимых, устойчивых к reward hacking данных. Любое заявление о способностях считать направленным.</li>
+        <li>Исключено по scope: кибербезопасность, экосистемные/протокольные/платёжные новости, кадровые перестановки уровня суб-направлений, чистые статьи. Изменения биллинга/ретайрментов Anthropic 15 июня — операционные, лишь контекст.</li>
+        <li>Цифры по сокращениям — от агрегаторов разной строгости (Challenger, Crunchbase, TrueUp); доли «AI-attributed» самоотчётны и зашумлены «AI-washing».</li>
+        <li><em>Лог-блок (1 строка) синтезирован при рендере: исходный материал не содержал лог-блока.</em></li>
+      </ul>
+      <ul lang="en">
+        <li>A deliberately thin set: a 3–4 day weekend window produced little signal — expected and acceptable. Quality over volume; marginal/hype items were excluded.</li>
+        <li>All three in-window releases shipped vendor-only or unauditable numbers; none has independent, reward-hacking-resistant evidence as of June 15. Treat every capability claim as directional.</li>
+        <li>Excluded by scope: cybersecurity, ecosystem/protocol/payment-rail news, sub-direction-lead personnel moves, pure research papers. Anthropic's June 15 billing/retirement changes are operational — context only.</li>
+        <li>Layoff figures come from aggregators of varying rigor (Challenger, Crunchbase, TrueUp); "AI-attributed" shares are self-reported and confounded by "AI-washing."</li>
+        <li><em>The log block (1 line) was synthesized at render time because the source material contained none.</em></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<button id="feedback-toggle" class="feedback-fab" type="button" aria-expanded="false" aria-controls="feedback-panel">
+  <span lang="ru">Обратная связь</span>
+  <span lang="en">Feedback</span>
+</button>
+
+<div id="feedback-panel" class="feedback-panel" hidden>
+  <div class="panel-inner">
+    <h2>
+      <span lang="ru">Лог обратной связи</span>
+      <span lang="en">Feedback log</span>
+    </h2>
+    <pre id="log-lines" class="log-lines"></pre>
+    <button id="copy-btn" class="copy-btn" type="button">
+      <span lang="ru">Скопировать</span>
+      <span lang="en">Copy</span>
+    </button>
+    <span id="copy-status" class="copy-status" role="status">
+      <span class="ok-msg">
+        <span lang="ru">Скопировано</span>
+        <span lang="en">Copied</span>
+      </span>
+      <span class="fail-msg">
+        <span lang="ru">Не сработало — используйте поле ниже</span>
+        <span lang="en">Copy failed — use the box below</span>
+      </span>
+    </span>
+    <textarea id="log-textarea" rows="6" readonly></textarea>
+    <p class="hint">
+      <span lang="ru">Долгое нажатие на поле — «Выделить всё».</span>
+      <span lang="en">Long-press the box to select all.</span>
+    </p>
+  </div>
+</div>
+
+<script src="assets/app.js?v=2"></script>
+</body>
+</html>
