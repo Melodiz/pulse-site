@@ -262,10 +262,11 @@ async def cmd_unsubscribe(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 
 # ----------------------------------------------------------------------- owner-only handlers
-async def on_owner_reply(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Feedback courier: capture OWNER text replies into feedback_inbox.jsonl. Others ignored silently."""
+async def on_owner_feedback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Feedback courier: capture ANY owner text message (reply or not) into
+    feedback_inbox.jsonl, so feedback is never silently dropped. Others ignored silently."""
     if update.effective_chat.id != context.bot_data["owner_id"]:
-        return  # silently ignore replies from anyone who isn't the owner
+        return  # silently ignore messages from anyone who isn't the owner
     msg = update.effective_message
     text = (msg.text or "").strip()
     if not text:
@@ -441,8 +442,9 @@ def main() -> None:
     app.add_handler(CommandHandler("help", cmd_help))
     app.add_handler(CommandHandler("subscribe", cmd_subscribe))
     app.add_handler(CommandHandler("unsubscribe", cmd_unsubscribe))
-    # Owner text replies -> feedback. (Documents are not TEXT, so they fall through to the next handler.)
-    app.add_handler(MessageHandler(filters.REPLY & filters.TEXT & ~filters.COMMAND, on_owner_reply))
+    # Any owner text (reply or plain) -> feedback. (Documents are not TEXT, so they
+    # fall through to the document handler; commands are excluded.)
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_owner_feedback))
     # Owner-sent documents -> incoming/.
     app.add_handler(MessageHandler(filters.Document.ALL, on_owner_document))
     app.add_error_handler(on_error)

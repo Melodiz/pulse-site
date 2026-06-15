@@ -57,15 +57,35 @@ has blocked the bot. (Owner DM notify via curl `sendMessage` is still fine in pa
 
 ## Process feedback
 
-**"process feedback"** = turn the owner's in-Telegram replies into paste-ready log lines.
+**"process feedback"** = fold the owner's in-Telegram messages into the feedback
+ledger and send it back. **The ledger is ONE combined file, `pulse_log.md`** — a
+single log for **both news AND trends** (no separate files, no per-type or dated
+filenames). Run after every owner feedback.
 
-1. **Pull** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/data/feedback_inbox.jsonl ./` (a
-   personal-KB file — keep it OUT of any tracked path; it is gitignored).
-2. **Clean** — each line is `{ts, text}`; turn the owner's free-form notes into
-   `pulse_log.md` feedback lines (match to the items they refer to: `👍`/`👎` + ≤10 words).
-3. **Courier** — write the cleaned lines to a `.md` and send it to the OWNER via the
-   bot's `sendDocument` (curl, token in a variable, never printed — same hygiene as
-   notify). `chat_id=$CHAT_ID` from `.env`.
+Two invariants (cemented):
+- **ADD-ONLY.** Log lines are append-only: every surfaced item keeps its line forever.
+  Never delete or rewrite prior lines; **dedup against existing lines** so an item that
+  recurs across passes is not re-added (note the recurrence on the existing line). The
+  only removal is the size-rule archive (oldest runs → `ARCHIVE_pulse_log_<range>.md`,
+  one summary line left behind). New passes append new `N<n>`/`TR<n>` blocks.
+- **FEEDBACK IS ALWAYS ACCOUNTED.** Every owner grade lands in the feedback column of
+  the matching line and is never dropped. This column is calibration fuel — 👎 + reason
+  means "stop surfacing this pattern"; 👍 means "upweight it" (the orchestrator project
+  reads it). The bot captures **any owner text message** (reply or plain) as feedback,
+  so nothing is silently lost.
+
+1. **Pull** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/data/feedback_inbox.jsonl ./`
+   (personal KB — keep it OUT of any tracked path; gitignored, repo is public). Work
+   on `pulse_log.md` outside the repo (e.g. `/tmp`); never commit it.
+2. **Merge** — each line is `{ts, text}` (free-form notes OR a graded card export).
+   Match each grade to its existing ledger line (by item/run-id) and fill the feedback
+   column; append any not-yet-logged items (add-only, deduped). Line format:
+   `<run-id> | <date> | <link> | <short item> | <type: MODEL/NEWS/MODALITY/TREND> | <feedback>`
+   — feedback is `👍`/`👎` + ≤10 words, blank = no opinion yet. Run IDs: `N<n>` for
+   news passes, `TR<n>` for trend passes, **all in the same combined file**.
+3. **Courier** — send the FULL updated ledger back to the OWNER via the bot's
+   `sendDocument`, **with the filename exactly `pulse_log.md`** (curl, `chat_id=$CHAT_ID`
+   from `.env`, token built in a variable, never printed — same hygiene as notify).
 4. **Clear** — once couriered, truncate the remote inbox so lines aren't re-processed:
    `ssh yandex-vps ': > ~/bots/pulse_bot/data/feedback_inbox.jsonl'`. Touch nothing else.
 
