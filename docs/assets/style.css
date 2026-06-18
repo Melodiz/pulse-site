@@ -224,6 +224,7 @@ h1 {
 .tag-plan        { color: var(--ink-mute); }
 .tag-trend       { color: var(--good); }
 .tag-infra       { color: var(--amber); }
+.tag-move        { color: var(--cool); }
 
 /* ═══════════════════════════════════════
    INDEX — ruled list, same column language

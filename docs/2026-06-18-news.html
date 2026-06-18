@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AI-Tech Field Pulse — News — 2026-06-18</title>
+  <link rel="stylesheet" href="assets/style.css?v=5">
+</head>
+<body class="lang-en">
+
+<header class="site-header">
+  <div class="header-row">
+    <p class="source">AI-Tech Field Pulse — News</p>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      <button type="button" data-lang="en" class="active" aria-pressed="true">EN</button>
+    </div>
+  </div>
+  <h1>
+    <span lang="ru">Дайджест новостей</span>
+    <span lang="en">News digest</span>
+  </h1>
+  <p class="digest-date">
+    <time datetime="2026-06-18">2026-06-18</time>
+    <span class="digest-range">
+      <span lang="ru">(проход N4 — 15–18 июня, окно расширено до ~середины мая для непокрытого)</span>
+      <span lang="en">(pass N4 — June 15–18, widened to ~mid-May for un-logged items)</span>
+    </span>
+  </p>
+</header>
+
+<main>
+
+<!-- TL;DR -->
+<section class="intro-block">
+  <details open>
+    <summary>
+      <span lang="ru">Коротко</span>
+      <span lang="en">TL;DR</span>
+    </summary>
+    <div class="intro-body">
+      <ul lang="ru">
+        <li><strong>Главная история окна — GLM-5.2:</strong> веса (MIT, 744B/40B активных, 1M контекст) и <em>независимые</em> бенчмарки приземлились — это новый #1 среди open-weights по Artificial Analysis Intelligence Index (51), что подтверждает «лучше Kimi K2.7-Code». Это модель <em>у границы</em> frontier, а не frontier: на уровне GPT-5.5 в агентной интеллектуальной работе, приближается к Opus 4.8 на части длинных задач, но уступает Opus 4.8/GPT-5.5 на самых сложных и прожорлива на токены.</li>
+        <li><strong>Два по-настоящему новых пункта вне модельных сигналов:</strong> Noam Shazeer (co-lead Gemini, соавтор Transformer) ушёл из Google в OpenAI (18 июня); приостановка Fable 5/Mythos 5 по экспортному контролю не разрешена на 18 июня, вокруг неё формируется дипломатический трек G7 «trusted-partners».</li>
+        <li><strong>Расширенное окно в остальном бедно на жёсткие новости способностей.</strong> Бо́льшая часть compute/экономики — движение трендов, не дискретные новости; сдвига SOTA по модальностям в окне нет.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>GLM-5.2 is the story of the window:</strong> its weights (MIT, 744B/40B-active, 1M context) and <em>independent</em> benchmarks have landed, making it the new #1 open-weights model on the Artificial Analysis Intelligence Index (51) — verifying the "better than Kimi K2.7-Code" call. It is a frontier-<em>edge</em> model, not frontier: level with GPT-5.5 on agentic knowledge work and approaching Opus 4.8 on some long-horizon coding, but still trails Opus 4.8/GPT-5.5 on the hardest agentic tasks, and is token-hungry.</li>
+        <li><strong>Two genuinely new in-scope items beyond model signals:</strong> Noam Shazeer (Gemini co-lead, Transformer co-author) left Google for OpenAI (June 18); and the Fable 5/Mythos 5 export-control suspension remains unresolved as of June 18, with a new G7 "trusted-partners" diplomatic track forming around it.</li>
+        <li><strong>The widened window is otherwise thin on hard capability news.</strong> Most compute/economic items are trend-movement, not discrete news, and no modality SOTA shift landed in-window.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- CARD 1 -->
+<article class="card" data-log="RUN news-2026-06-18 | 2026-06-18 | https://artificialanalysis.ai/articles/glm-5-2-is-the-new-leading-open-weights-model-on-the-artificial-analysis-intelligence-index | GLM-5.2: new #1 open-weights (AA Index 51), level w/ GPT-5.5 on agentic knowledge work, beats Kimi K2.7-Code; still below Opus 4.8/GPT-5.5 on hardest agentic; token-hungry | release |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">GLM-5.2 (Z.ai) — новый лидер open-weights, у границы frontier</span>
+        <span lang="en">GLM-5.2 (Z.ai) — new open-weights leader, frontier-edge</span>
+      </span>
+      <span class="tag tag-release">release</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Полные открытые веса (лицензия MIT), API, карта модели и scorecard приземлились 16 июня (на запуске 13 июня бенчмарков не было). MoE 744B всего / 40B активных, контекст 1M (против 200K у GLM-5.1), без зрения. Независимая оценка (Artificial Analysis, 17 июня): новый лидер open-weights по Intelligence Index v4.1 — <strong>51</strong>, впереди MiniMax-M3 (44), DeepSeek V4 Pro (44), Kimi K2.6 (43). На GDPval-AA v2 (реальная агентная интеллектуальная работа) — <strong>1524, фактически вровень с GPT-5.5 (xhigh, 1514)</strong>. Оговорка: прожорлива — 43k выходных токенов на задачу (37k reasoning), вне привлекательного квадранта цена/эффективность.</p>
+      <p lang="ru"><strong>Вопрос «лучше ли Kimi K2.7-Code» закрыт: да.</strong> Hands-on бенч (AkitaOnRails, 14 июня): GLM-5.2 87/100, Tier A, #6 — скачок с 46/100 Tier C #21 у GLM-5.1 за поколение; Kimi K2.7-Code, наоборот, слегка регрессировал к K2.6. Kilo (планирование vs сборка): GLM-5.2 выиграл раунд планирования/суждения; на сборке по фикс-спеке сравнялись. Ivan Fioravanti (локальные модели): GLM-5.2 &gt; MiniMax-M3 &gt; Kimi K2.7. Покрытие измерений: жёсткая реализация — сильно, у границы (TerminalBench v2.1 78%, SWE-bench Pro 62.1; первая открытая модель &gt;80% на Terminal-Bench по Cline); длинно-горизонтная агентность — конкурентна (в пределах ~1 п.п. от Opus 4.8 на FrontierSWE по вендору; вровень с GPT-5.5 независимо); чат — смешанно (Willison: отличный SVG-пеликан, регресс на тесте с опоссумом против 5.1); автономный self-loop research — не показан.</p>
+      <p lang="ru"><strong>Вердикт senior-уровня:</strong> самое чёткое свидетельство, что open-weights ~на поколение позади закрытого frontier на <em>самой сложной</em> агентной работе, но теперь реально равны на обычной-до-сложной — при ~$1,4/$4,4 за Mtok против $5/$25 у Opus 4.8. Для Anthropic-only стека это самый достоверный суверенный/fallback-вариант, обострённый отключением Fable 5. Таблицу сравнений Z.ai считать контрастной линией; цифры Artificial Analysis — вердикт. Это <strong>не</strong> случай benchmark-divergence: независимо подтверждено. → T5, T6.</p>
+      <p lang="en">Full open weights (MIT), API, model card, and scorecard landed June 16 (the June 13 launch shipped zero benchmarks). 744B-total / 40B-active MoE, 1M-token context (up from 200K on GLM-5.1), text-only. Independent eval (Artificial Analysis, June 17): new leading open-weights model on the Intelligence Index v4.1 at <strong>51</strong>, ahead of MiniMax-M3 (44), DeepSeek V4 Pro (44), Kimi K2.6 (43). On GDPval-AA v2 (real-world agentic knowledge work) it scores <strong>1524 — effectively level with GPT-5.5 (xhigh, 1514)</strong>. Caveat: token-hungry — 43k output tokens/task (37k reasoning), off the attractive cost-efficiency quadrant.</p>
+      <p lang="en"><strong>Resolves the "better than Kimi K2.7-Code" question: yes.</strong> Hands-on bench (AkitaOnRails, June 14): GLM-5.2 scored 87/100, Tier A, #6 — up from GLM-5.1's 46/100 Tier C #21 in one generation; Kimi K2.7-Code actually regressed a notch vs K2.6. Kilo's planning-vs-building head-to-head: GLM-5.2 won the planning/judgment round; on building from a fixed spec the two converged. Ivan Fioravanti (local models) ranked GLM-5.2 &gt; MiniMax-M3 &gt; Kimi K2.7. Capability dimensions: hard implementation strong, near-frontier (TerminalBench v2.1 78%, SWE-bench Pro 62.1; first open model &gt;80% on Terminal-Bench per Cline); long-horizon agentic competitive (within ~1 pt of Opus 4.8 on FrontierSWE per vendor; level with GPT-5.5 independently); chat mixed (Willison: excellent self-animated pelican SVG, a regression on his opossum test vs 5.1); autonomous self-loop research not demonstrated.</p>
+      <p lang="en"><strong>Senior-researcher read:</strong> the clearest evidence yet that open weights are ~one generation behind the closed frontier on the <em>hardest</em> agentic work, but now genuinely match it on most ordinary-to-hard work — at ~$1.4/$4.4 per Mtok vs Opus 4.8's $5/$25. For an Anthropic-only stack this is the most credible sovereign/fallback option, sharpened by the Fable 5 outage. Treat Z.ai's own comparison table as a contrast line; the Artificial Analysis numbers are the verdict. This is <strong>not</strong> a benchmark-divergence case — it cleared an independent frontier-adjacent threshold. → T5, T6.</p>
+      <p class="card-link"><a href="https://artificialanalysis.ai/articles/glm-5-2-is-the-new-leading-open-weights-model-on-the-artificial-analysis-intelligence-index">artificialanalysis.ai — GLM-5.2 leads open weights</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 2 -->
+<article class="card" data-log="RUN news-2026-06-18 | 2026-06-18 | https://bloomberg.com/news/articles/2026-06-18/star-google-researcher-jumps-to-openai-in-coup-for-startup | Noam Shazeer (Gemini co-lead, Transformer + MoE co-author) leaves Google for OpenAI; Google had paid $2.7B in 2024 to bring him back | move |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Noam Shazeer уходит из Google в OpenAI</span>
+        <span lang="en">Noam Shazeer leaves Google for OpenAI</span>
+      </span>
+      <span class="tag tag-move">move</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Shazeer — VP инженерии Google, технический co-lead Gemini, соавтор «Attention Is All You Need» (2017) и работы про Sparsely-Gated Mixture-of-Experts (arXiv:1701.06538) — переходит в OpenAI (18 июня). Google подтвердил Reuters («благодарны за вклад Noam»), Altman публично поприветствовал. По WSJ (через Reuters), Google заплатил $2,7 млрд в 2024 — лицензионная сделка по технологии Character.AI, по которой Shazeer вернулся в Google DeepMind; он был центральной фигурой разворота Gemini против ChatGPT.</p>
+      <p lang="en">Shazeer — Google VP of Engineering, Gemini technical co-lead, co-author of "Attention Is All You Need" (2017) and the Sparsely-Gated Mixture-of-Experts paper (arXiv:1701.06538) — is joining OpenAI (June 18). Google confirmed to Reuters ("grateful for Noam's meaningful contributions"); Altman publicly welcomed him. Per WSJ (via Reuters), Google paid $2.7 billion in 2024 — a Character.AI tech-licensing deal that also returned Shazeer to Google DeepMind; he was central to Gemini's turnaround against ChatGPT.</p>
+      <p lang="ru"><strong>Почему важно (senior-уровень):</strong> это движение исследовательского лидерства, задающее направление, а не рядовой найм; тайминг — на фоне подготовки OpenAI к IPO. Убирает одного из главных архитекторов Gemini и концентрирует фундаментальный талант в OpenAI. Это <em>не</em> «основал конкурента с отдельным тех-тезисом» — это консолидация, не дивергенция.</p>
+      <p lang="en"><strong>Why it matters at senior-researcher altitude:</strong> a direction-driving research-leadership move, not a routine exec hire, timed against OpenAI's reported IPO run-up. It removes a primary architect from Gemini and concentrates more foundational talent at OpenAI. Not a "founds a rival with a distinct thesis" case — consolidation, not divergence.</p>
+      <p class="card-link"><a href="https://bloomberg.com/news/articles/2026-06-18/star-google-researcher-jumps-to-openai-in-coup-for-startup">bloomberg.com — Google researcher jumps to OpenAI</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 3 -->
+<article class="card" data-log="RUN news-2026-06-18 | 2026-06-18 | https://theglobeandmail.com/business/article-anthropic-trump-officials-deal-restore-fable-5-mythos-5/ | Fable 5/Mythos 5 still suspended June 18: Amazon-reported jailbreak trigger, Lutnick letter, 80+ cyber execs oppose, Commerce talks ongoing → T6 | policy |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Fable 5 / Mythos 5 всё ещё приостановлены (18 июня) — причина прояснилась, формируется трек G7</span>
+        <span lang="en">Fable 5 / Mythos 5 still suspended (June 18) — cause clarified, G7 track forming</span>
+      </span>
+      <span class="tag tag-policy">policy</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">Новое с N3: (а) триггер — CEO Amazon Andy Jassy предупредил власти США о джейлбрейке после того, как исследователи Amazon, по сообщениям, обошли safeguards Fable 5 (Fortune/Wired); (б) письмо министра Lutnick к Amodei ссылается на опасение, что модели попадут к военно-разведывательным пользователям в Китае/России (Reuters, копия от 15 июня); (в) 80+ руководителей по кибербезопасности (включая лидеров Nvidia и Adobe) подписали 14 июня открытое письмо против ограничения; (г) техсотрудники Anthropic встречались с Commerce 15–16 июня — сделки на 18 июня нет; (д) трейдеры Kalshi оценивают восстановление до 1 июля в ~57%, до 17 июля в ~75% (настроение, не факт); (е) обещанное Anthropic техническое опровержение оценки джейлбрейка на 17 июня не опубликовано.</p>
+      <p lang="en">New since N3: (a) the trigger is now reported — Amazon CEO Andy Jassy alerted US officials to a jailbreak after Amazon researchers reportedly bypassed Fable 5 safeguards (Fortune/Wired); (b) Commerce Secretary Lutnick's letter to Amodei cited fear the models could reach military-intelligence users in China/Russia (Reuters, copy seen June 15); (c) 80+ cybersecurity executives (incl. leaders at Nvidia and Adobe) signed a June 14 open letter opposing the restriction; (d) Anthropic technical staff met Commerce June 15–16, with no deal as of June 18; (e) Kalshi traders price ~57% restoration before July 1 and ~75% before July 17 (sentiment, not fact); (f) Anthropic's promised technical rebuttal of the jailbreak assessment was unpublished as of June 17.</p>
+      <p lang="ru"><strong>Почему важно:</strong> зависимость от единственного вендора frontier несёт риск внезапной государственной остановки — прямо релевантно Anthropic-only стеку; Opus 4.8 (и Sonnet/Haiku) остаются незатронутым fallback. → сильное движение T6 (дрейф к закрытости).</p>
+      <p lang="en"><strong>Why it matters:</strong> single-vendor frontier dependence carries sudden government-interruption risk — directly relevant to an Anthropic-only stack; Opus 4.8 (and Sonnet/Haiku) remain the unaffected fallback. → strong T6 (closure drift) movement.</p>
+      <p class="card-link"><a href="https://theglobeandmail.com/business/article-anthropic-trump-officials-deal-restore-fable-5-mythos-5/">theglobeandmail.com — talks to restore Fable 5 / Mythos 5</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 4 -->
+<article class="card" data-log="RUN news-2026-06-18 | 2026-06-18 |  | G7 Évian: trusted-partners frontier-model-access framework discussed; platform in ~1 month, Sept summit; UK exemption rejected; no deal yet → T6 | policy |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">G7: формируется рамка «trusted-partners» для доступа к frontier-моделям (Эвиан)</span>
+        <span lang="en">G7 "trusted-partners" frontier-access framework forming (Évian)</span>
+      </span>
+      <span class="tag tag-policy">policy</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">После запрета Fable 5 лидеры G7 (саммит в Эвиане, 15–17 июня) обсуждали схему предоставления отдельным союзным странам/компаниям доступа к frontier-моделям США в обход запрета на иностранных граждан. По The National (17 июня, Эвиан): «Платформа будет создана в течение следующего месяца среди горстки западных демократий, лидеры планируют встретиться в сентябре, — сказал Макрон»; Макрон предупредил, что риск в том, что AI-фирмы США потеряют клиентов, если США могут внезапно «выключить рубильник». Двусторонний запрос Великобритании на исключение отклонён (UK ссылается на потребность в суверенном AI). Altman призвал G7 «взять под контроль управление AI».</p>
+      <p lang="en">In the wake of the Fable 5 ban, G7 leaders (Évian summit, June 15–17) discussed a scheme to grant select allied countries/companies access to frontier US models, bypassing the foreign-national ban. Per The National (June 17, Évian): "A platform will be set up in the next month among a handful of Western democracies, with their leaders planning to meet in September, Mr Macron said"; Macron warned the risk is that US AI firms lose clients if the US can suddenly "turn off the switch." The UK's bilateral exemption request was rejected (UK citing need for sovereign AI capability); Sam Altman urged the G7 to "take control of AI governance."</p>
+      <p lang="ru"><strong>Класс заявления:</strong> анонсированный план/предложение — соглашения нет, официального заявления G7 нет. <strong>Почему важно:</strong> эта рамка определит, можно ли вообще разворачивать frontier-модели США для не-US-persons по миру — напрямую формирует среднесрочный доступ для всех на US-стеке. → T6.</p>
+      <p lang="en"><strong>Claim class:</strong> announced plan/proposal — no agreement reached, no official G7 statement. <strong>Why it matters:</strong> this framework will determine whether US frontier models can be deployed to non-US-persons globally — directly shaping medium-term access for anyone on a US-model stack. → T6.</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 5 -->
+<article class="card" data-log="RUN news-2026-06-18 | 2026-06-18 | https://nvidianews.nvidia.com | NVIDIA Vera Rubin reaches full production; vendor claims 10x lower inference cost and 4x fewer GPUs to train MoE vs Blackwell; cloud H2 2026 → T5 | infra |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">NVIDIA Vera Rubin вышла в «полное производство» (вендорское заявление)</span>
+        <span lang="en">NVIDIA Vera Rubin reaches "full production" (vendor claim)</span>
+      </span>
+      <span class="tag tag-infra">infra</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">GTC Taipei, 1 июня. GPU Rubin: 336 млрд транзисторов, TSMC N3, 288GB HBM4; стойка NVL72 — заявлено 3,6 EFLOPS инференса в NVFP4. NVIDIA заявляет до <strong>10× ниже стоимость inference-токена и 4× меньше GPU для обучения MoE</strong> против Blackwell. Доступность в облаках (AWS, Google Cloud, Azure, Oracle, CoreWeave) — H2 2026, пока нет.</p>
+      <p lang="en">GTC Taipei, June 1. Rubin GPU: 336B transistors, TSMC N3, 288GB HBM4; NVL72 rack claimed at 3.6 EFLOPS NVFP4 inference. NVIDIA claims up to <strong>10x lower inference token cost and 4x fewer GPUs to train MoE</strong> vs Blackwell. Cloud availability (AWS, Google Cloud, Azure, Oracle, CoreWeave) is H2 2026, still pending.</p>
+      <p lang="ru"><strong>Класс заявления:</strong> анонс/вендорское заявление — независимо не измерено. <strong>Почему важно:</strong> если заявление о 10× по стоимости инференса переживёт независимое измерение, оно усилит кривую стоимости интеллекта — но это вендорская цифра, пока не доказана. → T5 (watch).</p>
+      <p lang="en"><strong>Claim class:</strong> announced/vendor-claim — not independently benchmarked. <strong>Why it matters:</strong> if the 10x inference-cost claim survives independent measurement it compounds the cost-of-intelligence curve — but it's a vendor number until proven. → T5 (watch).</p>
+      <p class="card-link"><a href="https://nvidianews.nvidia.com">nvidianews.nvidia.com</a></p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- CARD 6 -->
+<article class="card" data-log="RUN news-2026-06-18 | 2026-06-18 |  | Huawei details Ascend 950DT (Q4 2026, native FP8, 144GB HBM roadmap) + annual compute-doubling cadence; 100k+ Ascend in service → T7 | infra |">
+  <details>
+    <summary>
+      <span class="card-title">
+        <span lang="ru">Huawei раскрыл Ascend 950DT + годовой каданс удвоения compute</span>
+        <span lang="en">Huawei details Ascend 950DT + annual compute-doubling cadence</span>
+      </span>
+      <span class="tag tag-infra">infra</span>
+    </summary>
+    <div class="card-body">
+      <p lang="ru">5 июня. Huawei подтвердил 950DT (чип обучения+декода, нативный FP8; дорожная карта 144GB HBM, 4 ТБ/с) для Huawei Cloud позднее в 2026 и пообещал каданс «одно новое поколение в год, удвоение compute»; 100k+ единиц Ascend уже в эксплуатации.</p>
+      <p lang="en">June 5. Huawei confirmed the 950DT (training+decode chip, native FP8; roadmap 144GB HBM, 4 TB/s bandwidth) for Huawei Cloud later in 2026 and pledged a "one new generation per year, doubling compute" cadence; 100k+ Ascend units already in service.</p>
+      <p lang="ru"><strong>Класс заявления:</strong> анонсированный план — цель Q4 2026, не отгружается. <strong>Почему важно:</strong> продолжающееся свидетельство, что Китай строит отечественный путь frontier-обучения вопреки экспортному контролю. → T7 (жизнеспособность non-CUDA).</p>
+      <p lang="en"><strong>Claim class:</strong> announced plan — Q4 2026 target, not shipping. <strong>Why it matters:</strong> continued evidence China is building a domestic frontier-training path despite export controls. → T7 (non-CUDA viability).</p>
+    </div>
+  </details>
+  <div class="card-actions">
+    <button type="button" class="grade-btn up" aria-pressed="false" aria-label="👍">👍</button>
+    <button type="button" class="grade-btn down" aria-pressed="false" aria-label="👎">👎</button>
+    <input type="text" class="note-input" placeholder="Заметка / Note">
+  </div>
+</article>
+
+<!-- EXTRA SECTIONS (non-graded) -->
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Указатели движения трендов (для следующего прохода трендов)</span>
+      <span lang="en">Trend-movement flags (next trends pass)</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>T1 (замена/аугментация SWE):</strong> по SkillSyncer 2026 Layoffs Tracker «53% событий сокращений в этом году явно называют AI/автоматизацию/ML движущей силой — 155 321 работник в 141 компании». Challenger (отчёт за май, вышел 4 июня): AI назван в 38 579 плановых сокращений США (~40% от 97 006 в мае) — первый месяц, когда AI стал самой называемой причиной; YTD AI-атрибуция 87 714 уже превысила весь 2025 (54 836). Механизм у junior-конца: Stanford HAI 2026 — занятость разработчиков 22–25 лет упала ~20% к 2024.</li>
+        <li><strong>T5 (стоимость интеллекта):</strong> GLM-5.2 ~$1,4/$4,4 против $5/$25 у Opus 4.8; заявление Vera Rubin о 10×.</li>
+        <li><strong>T7 (non-CUDA):</strong> каданс Huawei Ascend; открытые веса MiniMax-M3 теперь скачиваемы.</li>
+        <li><strong>T9 (AI в науке):</strong> покрытие пропускной способности автономных лабораторий (Scientific American: A-Lab ~в 100× быстрее человека), партнёрства Anthropic в life-sciences — фон, без жёсткого нового результата.</li>
+        <li><strong>T10 (стена данных):</strong> Meta, по сообщениям, упёрлась в потолок обучающих данных на моделях семейства Muse (Tech Times, 16 июня).</li>
+        <li><strong>Compute-узкое место:</strong> Sightline Climate/Bloomberg (середина мая): из ~16 ГВт пайплайна дата-центров США 2026 строится лишь ~5 ГВт; ограничение — трансформаторы/коммутация/сеть, не чипы.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>T1 (SWE replacement/augmentation):</strong> per the SkillSyncer 2026 Layoffs Tracker, "53% of layoff events this year explicitly cite AI/automation/ML as a driving force, affecting 155,321 workers across 141 companies." Challenger (May report, June 4): AI cited in 38,579 planned US cuts (~40% of May's 97,006) — the first month AI was the most-cited reason; YTD AI-attributed 87,714 already exceeds full-year 2025 (54,836). Mechanism is junior-concentrated: Stanford HAI 2026 — developers aged 22–25 down ~20% from 2024.</li>
+        <li><strong>T5 (cost-of-intelligence):</strong> GLM-5.2 at ~$1.4/$4.4 vs Opus 4.8 $5/$25; Vera Rubin's 10x claim.</li>
+        <li><strong>T7 (non-CUDA):</strong> Huawei Ascend cadence; MiniMax-M3 open weights now downloadable.</li>
+        <li><strong>T9 (AI-in-science):</strong> autonomous-lab throughput coverage (Scientific American: A-Lab iterating ~100× human speed), Anthropic life-sciences partnerships — background, no hard new result.</li>
+        <li><strong>T10 (data wall / synthetic data):</strong> Meta reportedly hit a training-data bottleneck on its Muse-family models (Tech Times, June 16).</li>
+        <li><strong>Compute bottleneck:</strong> Sightline Climate/Bloomberg (mid-May): of a ~16 GW US 2026 datacenter pipeline only ~5 GW is under construction; the binding constraint is transformers/switchgear/grid, not chips.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Модальности + указатели DL Pulse</span>
+      <span lang="en">Modality state + DL Pulse pointers</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>Модальности:</strong> квалифицирующихся сдвигов SOTA в окне нет. Видео (Seedance 2.0, Veo 3.1, Kling 3.0) и изображения (Nano Banana Pro / Gemini-3-Pro-Image, GPT-Image-2) установлены ранее в 2026; ASR-SOTA (Cohere Transcribe, 5,42% avg WER) — 26 марта, вне окна. Сдвига speech-gen нет.</li>
+        <li><strong>→ DL Pulse:</strong> DiffusionGemma (Google DeepMind) — 26B MoE open-weight диффузионная текстовая модель, ~4× быстрее (~1000 tok/s на H100).</li>
+        <li><strong>→ DL Pulse:</strong> Artificial Analysis Intelligence Index v4.1 (16 июня) — сдвиг методологии к агентным нагрузкам + пер-таск метрики (поэтому цифры GLM-5.2 взвешены по агентности).</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>Modality:</strong> no qualifying SOTA shift in-window. Video (Seedance 2.0, Veo 3.1, Kling 3.0) and image (Nano Banana Pro / Gemini-3-Pro-Image, GPT-Image-2) SOTA were set earlier in 2026; ASR SOTA (Cohere Transcribe, 5.42% avg WER) dates to March 26, out of window. No speech-gen SOTA shift.</li>
+        <li><strong>→ DL Pulse:</strong> DiffusionGemma (Google DeepMind) — 26B MoE open-weight diffusion text model, ~4× faster generation (~1,000 tok/s on H100).</li>
+        <li><strong>→ DL Pulse:</strong> Artificial Analysis Intelligence Index v4.1 (June 16) — methodology shift toward agentic workloads + per-task metrics (why GLM-5.2's numbers are agentic-weighted).</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Рекомендации</span>
+      <span lang="en">Recommendations</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>Принять GLM-5.2 как основной open-weights fallback/суверенный вариант сейчас.</strong> Это сильнейший открытый кодер, а отключение Fable 5 доказало реальность риска прерывания у одного вендора. Поднять eval-харнесс на <em>своих</em> задачах прежде, чем доверять в проде; свои hands-on-результаты весить выше вендорских таблиц и агрегатов. Порог эскалации от fallback к co-primary: совпадение с Opus 4.8 на вашем самом сложном агентном код-eval. Заложить токен-прожорливость (~43k выходных/задача).</li>
+        <li><strong>Держать Opus 4.8 рабочим frontier; не проектировать новую автоматизацию в расчёте на возврат Fable 5 к фиксированной дате.</strong> Восстановление — класс слухов/настроений (Kalshi не факты). Изменит решение: официальный анонс Anthropic/Commerce о восстановлении — не пост в X.</li>
+        <li><strong>Следить за итогом G7 trusted-partners</strong> (таймлайн Макрона ~1 мес / сентябрь). Если есть зависимость от доступа не-US-persons — эта рамка определит среднесрочный доступ к frontier-моделям США.</li>
+        <li><strong>Считать заявление Vera Rubin о 10× непроверенным,</strong> пока не появятся независимые измерения стоимости токена; при подтверждении в H2 2026 пересмотреть допущения по стоимости для высокообъёмных нагрузок Opus.</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>Adopt GLM-5.2 as the primary open-weights fallback/sovereign option now.</strong> It is the strongest open coder available and the Fable 5 outage proved single-vendor interruption risk is real. Stand up an eval harness on <em>your own</em> tasks before trusting it in production; weight your own hands-on results over both vendor tables and aggregate leaderboards. Threshold to escalate from fallback to co-primary: it matches Opus 4.8 on your hardest agentic-coding eval. Budget for its token-hunger (~43k output tokens/task).</li>
+        <li><strong>Keep Opus 4.8 as the working frontier; do not architect new automation assuming Fable 5 returns on a fixed date.</strong> Restoration is rumor/sentiment-class (Kalshi odds are not facts). What would change this: an official Anthropic or Commerce restoration announcement — not a third-party X post.</li>
+        <li><strong>Track the G7 trusted-partners outcome</strong> (Macron's ~1-month / September timeline). If you have any non-US-person access dependency, this framework determines your medium-term access to US frontier models.</li>
+        <li><strong>Treat Vera Rubin's 10x inference-cost claim as unverified</strong> until independent token-cost measurements appear; if confirmed in H2 2026, revisit cost assumptions for high-volume Opus workloads.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="extra-section">
+  <details>
+    <summary class="extra-heading">
+      <span lang="ru">Оговорки</span>
+      <span lang="en">Caveats</span>
+    </summary>
+    <div class="extra-body">
+      <ul lang="ru">
+        <li><strong>Вендор vs независимое:</strong> Z.ai не публиковал бенчмарки на запуске GLM-5.2 13 июня; вердикт опирается на независимые evals Artificial Analysis (17 июня) + hands-on, не на таблицу Z.ai. Цифры NVIDIA и Huawei — вендорские, не проверены независимо.</li>
+        <li><strong>Тайминг восстановления Fable 5 неизвестен</strong> и доминируется слухами; вирусные посты (вроде «48 часов BridgeMind») не подтверждены и не от Anthropic.</li>
+        <li><strong>Реальные отсутствия в расширенном окне:</strong> новых правил BIS нет, GAIN AI Act не принят, новых гигаваттных compute-сделок нет ($35B Apollo/Blackstone — последняя крупная), сдвига SOTA модальностей нет.</li>
+        <li><strong>Исключено по scope:</strong> кибер-/«модель ломает X» аспекты истории Fable 5; экосистемные/эксклюзивные сделки (например, сообщения о переговорах SpaceX–Cursor); запуски без сути способностей; перестановки ниже уровня direction-lead.</li>
+        <li><em>Лог-блок реконструирован в канонический формат при рендере (исходный «paste-ready» блок был в ином порядке полей и иной грануляции).</em></li>
+      </ul>
+      <ul lang="en">
+        <li><strong>Vendor vs independent:</strong> Z.ai published no benchmarks at GLM-5.2's June 13 launch; the verdict rests on independent Artificial Analysis evals (June 17) plus hands-on, not Z.ai's own table. NVIDIA and Huawei figures are vendor claims, not independently benchmarked.</li>
+        <li><strong>Fable 5 restoration timing is unknowable</strong> and dominated by rumor; viral posts (e.g. the "48-hour BridgeMind" claim) are unverified and not from Anthropic.</li>
+        <li><strong>Genuine absences in the widened window:</strong> no new BIS rule, no GAIN AI Act passage, no new gigawatt-scale frontier compute partnership ($35B Apollo/Blackstone remains the most recent), no modality SOTA shift.</li>
+        <li><strong>Excluded by scope:</strong> cyber / "model breaks X" angles of the Fable 5 story; ecosystem/exclusive-deal items (e.g. reported SpaceX–Cursor talks); product launches without capability substance; personnel moves below direction-lead level.</li>
+        <li><em>The log block was reconciled to canonical format at render time (the source "paste-ready" block used a different field order and granularity).</em></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<button id="feedback-toggle" class="feedback-fab" type="button" aria-expanded="false" aria-controls="feedback-panel">
+  <span lang="ru">Обратная связь</span>
+  <span lang="en">Feedback</span>
+</button>
+
+<div id="feedback-panel" class="feedback-panel" hidden>
+  <div class="panel-inner">
+    <h2>
+      <span lang="ru">Лог обратной связи</span>
+      <span lang="en">Feedback log</span>
+    </h2>
+    <pre id="log-lines" class="log-lines"></pre>
+    <button id="copy-btn" class="copy-btn" type="button">
+      <span lang="ru">Скопировать</span>
+      <span lang="en">Copy</span>
+    </button>
+    <span id="copy-status" class="copy-status" role="status">
+      <span class="ok-msg">
+        <span lang="ru">Скопировано</span>
+        <span lang="en">Copied</span>
+      </span>
+      <span class="fail-msg">
+        <span lang="ru">Не сработало — используйте поле ниже</span>
+        <span lang="en">Copy failed — use the box below</span>
+      </span>
+    </span>
+    <textarea id="log-textarea" rows="6" readonly></textarea>
+    <p class="hint">
+      <span lang="ru">Долгое нажатие на поле — «Выделить всё».</span>
+      <span lang="en">Long-press the box to select all.</span>
+    </p>
+  </div>
+</div>
+
+<script src="assets/app.js?v=2"></script>
+</body>
+</html>
