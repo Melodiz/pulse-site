@@ -307,17 +307,30 @@ async def on_owner_document(update: Update, context: ContextTypes.DEFAULT_TYPE) 
     name = _sanitize_md_name(doc.file_name, fallback=f"digest-{update.update_id}")
     dest = INCOMING_DIR / name
     tmp = INCOMING_DIR / (name + ".part")
-    try:
-        tg_file = await doc.get_file()
-        await tg_file.download_to_drive(custom_path=str(tmp))
-        os.replace(tmp, dest)  # only a fully-downloaded file ever appears as a finished .md
-    except (TelegramError, OSError):
-        log.exception("failed to download owner document")
+    # The box's tunnel is flaky and file fetches over the direct route can be slow,
+    # so use generous timeouts and retry transient failures before giving up.
+    last_err: Exception | None = None
+    for attempt in range(1, 4):
         try:
-            tmp.unlink(missing_ok=True)  # never leave a partial file for CC to pull
-        except OSError:
-            pass
-        await msg.reply_text("⚠️ Download failed — try resending.")
+            tg_file = await doc.get_file(read_timeout=60, connect_timeout=30)
+            await tg_file.download_to_drive(
+                custom_path=str(tmp),
+                read_timeout=120, write_timeout=120, connect_timeout=30, pool_timeout=30,
+            )
+            os.replace(tmp, dest)  # only a fully-downloaded file ever appears as a finished .md
+            break
+        except (TelegramError, OSError) as exc:
+            last_err = exc
+            try:
+                tmp.unlink(missing_ok=True)  # never leave a partial file for CC to pull
+            except OSError:
+                pass
+            log.warning("owner document download attempt %d/3 failed: %s", attempt, exc.__class__.__name__)
+            if attempt < 3:
+                await asyncio.sleep(2 * attempt)
+    else:
+        log.error("owner document download failed after 3 attempts", exc_info=last_err)
+        await msg.reply_text("⚠️ Download failed after retries — try resending.")
         return
     log.info("saved owner document to incoming/%s", name)
     await msg.reply_text(f"Saved “{name}” to incoming ✓ Run “process new files” to render it.")
