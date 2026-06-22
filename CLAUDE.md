@@ -73,6 +73,12 @@ Two invariants (cemented):
   means "stop surfacing this pattern"; 👍 means "upweight it" (the orchestrator project
   reads it). The bot captures **any owner text message** (reply or plain) as feedback,
   so nothing is silently lost.
+- **CALIBRATION IS SILENT (locked).** Feedback shapes what surfaces, but is NEVER cited
+  or referenced in a digest page or a run report, and must not nudge the owner's read.
+  Do not write "as you noted", "confirming your call", "responds to your feedback", or
+  any echo of the owner's grades. Digests and reports stay evidence-led and neutral; the
+  owner forms his own read. Feedback's only visible home is the `pulse_log.md` feedback
+  column (and the calibration notes there).
 
 1. **Pull** — `rsync -av yandex-vps:/home/melodiz/bots/pulse_bot/data/feedback_inbox.jsonl ./`
    (personal KB — keep it OUT of any tracked path; gitignored, repo is public). Work
